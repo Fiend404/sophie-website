@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Geist', 'Inter', sans-serif;
+
+    --color-brand-50: #eef8ff;
+    --color-brand-100: #d9efff;
+    --color-brand-light: #9adcff;
+    --color-brand: #36a5e1;
+    --color-brand-dark: #2b84b4;
+    --color-brand-navy: #081245;
+
+    --animate-shimmer: shimmer 5s linear infinite;
+    --animate-float-y: float-y 3s ease-in-out infinite;
+    --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @keyframes shimmer {
+        0% { background-position: 200% center; }
+        100% { background-position: -200% center; }
+    }
+    @keyframes float-y {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+}

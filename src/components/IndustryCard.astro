@@ -1,0 +1,24 @@
+---
+interface Props {
+    href: string;
+    img: string;
+    alt: string;
+    title: string;
+    description: string;
+}
+
+const { href, img, alt, title, description } = Astro.props;
+---
+
+<a href={href} class="flex-shrink-0 snap-start" style="width: 351px;">
+    <div class="industry-card relative rounded-3xl overflow-hidden" style="height: 470px;">
+        <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover"/>
+        <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
+            <div class="relative overflow-hidden rounded-2xl p-5">
+                <div class="absolute inset-0 bg-white/30 backdrop-blur-[12px]" style="z-index: -1;"></div>
+                <h3 class="text-2xl font-semibold text-white leading-[31.2px] mb-3">{title}</h3>
+                <p class="text-base font-medium text-white leading-6">{description}</p>
+            </div>
+        </div>
+    </div>
+</a>

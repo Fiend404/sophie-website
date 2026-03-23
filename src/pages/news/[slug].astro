@@ -1,0 +1,143 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FromTheBlog from '../../components/FromTheBlog.astro';
+import articles from '../../data/articles.json';
+
+const bodyFiles = import.meta.glob('../../data/bodies/*.html', { query: '?raw', import: 'default' });
+
+export function getStaticPaths() {
+    return articles.map((article: any) => ({
+        params: { slug: article.slug },
+        props: { article },
+    }));
+}
+
+const { article } = Astro.props;
+
+const bodyPath = `../../data/bodies/${article.slug}.html`;
+const body = bodyFiles[bodyPath] ? await bodyFiles[bodyPath]() : '';
+
+const relatedArticles = article.relatedSlugs
+    .map((s: string) => articles.find((a: any) => a.slug === s))
+    .filter(Boolean);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{article.title}</title>
+    <meta name="description" content={article.subtitle}/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Geist', 'Inter', 'sans-serif'] },
+                    colors: { brand: { 50: '#eef8ff', 100: '#d9efff', light: '#9adcff', DEFAULT: '#36a5e1', dark: '#2b84b4', navy: '#081245' } }
+                }
+            }
+        }
+    </script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .nav-dropdown { position: static; }
+        .nav-dropdown .nav-dropdown-menu { display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: 0.3s; position: absolute; top: 100%; left: 0; right: 0; padding-top: 30px; }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+        .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+        .nav-dropdown-arrow { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="font-sans text-[#475467] antialiased bg-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<div class="relative">
+<img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4bb3b79d1daf24cb8e700_bg-hero.svg" alt="" class="absolute top-0 left-0 w-full" style="z-index: -1; pointer-events: none;"/>
+
+<!-- ============ HERO BANNER ============ -->
+<section style="padding: 140px 0 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row gap-8 mb-12">
+            <div class="lg:flex-1">
+                <div class="text-base text-[#475467] mb-3">{article.category}</div>
+                <h1 class="text-[48px] font-semibold text-[#182230] leading-[57.6px] mb-4">{article.title}</h1>
+                <p class="text-lg text-[#4b5563] leading-[27px]">{article.subtitle}</p>
+            </div>
+            <div class="lg:w-[200px] flex-shrink-0">
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-sm text-[#6b7280] mb-1">Written by</div>
+                        <div class="text-base font-medium text-[#182230]">{article.author}</div>
+                    </div>
+                    <div>
+                        <div class="text-sm text-[#6b7280] mb-1">Published on</div>
+                        <div class="text-base font-medium text-[#182230]">{article.date}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-xl overflow-hidden">
+            <img src={article.heroImg} alt={article.title} class="w-full h-auto" style="max-height: 513px; object-fit: cover;"/>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ARTICLE BODY ============ -->
+<section style="padding: 60px 0 80px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex gap-0">
+            <!-- Left: Table of Contents -->
+            {article.toc.length > 0 && (
+                <div style="width: 290px; flex-shrink: 0;">
+                    <div class="sticky top-24" style="width: 240px;">
+                        <h3 class="text-base font-semibold text-brand leading-[20.8px] mb-4">Table of contents</h3>
+                        <nav class="space-y-3">
+                            {article.toc.map((item: any) => (
+                                <a href={`#${item.id}`} class="block text-sm text-[#4b5563] hover:text-brand transition-colors leading-[21px]">{item.text}</a>
+                            ))}
+                        </nav>
+                    </div>
+                </div>
+            )}
+
+            <!-- Right: Article Content -->
+            <div style={article.toc.length > 0 ? "width: 826px; flex-shrink: 0;" : "max-width: 826px; margin: 0 auto;"}>
+                {body
+                    ? <div class="prose max-w-none" set:html={body}></div>
+                    : <div class="text-center py-16">
+                        <p class="text-lg text-[#6b7280] mb-4">This article is coming soon.</p>
+                        <a href="/news" class="text-brand hover:underline">Back to all articles</a>
+                      </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<!-- ============ FROM THE BLOG ============ -->
+{relatedArticles.length > 0 && (
+<section style="padding: 60px 0 80px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <FromTheBlog articles={relatedArticles} ctaStyle="filled" />
+    </div>
+</section>
+)}
+
+<Footer />
+
+</body>
+</html>

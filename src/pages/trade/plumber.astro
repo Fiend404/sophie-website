@@ -1,0 +1,305 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import IndustryCard from '../../components/IndustryCard.astro';
+
+const features = [
+    { title: 'Never Miss a Customer Call Again', desc: 'With 24/7 AI call handling, Sophiie filters repairs, installs and service requests instantly. Each booking drops into your calendar while urgent jobs get escalated to your on-call team.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69269234509df519f0c9b27e_Content%205%20(1).jpg' },
+    { title: 'Easy AI Scheduling for Plumbers', desc: 'Sophiie analyses your schedules, notes site addresses and job duration to optimise bookings. Confirmations and behaviourally framed reminders drive punctuality and cut no-shows.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69269254bd32446e9a803076_Content%203%20(2).jpg' },
+    { title: 'Smart Office Manager for Plumbers', desc: 'Keep every job detail in a single timeline from first call to final payment (assignments, notes, site photos, status). Centralised digital records support compliance audits.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69254ccddd1746b3e8d7ca37_image%20(87).jpg' },
+    { title: 'AI Messaging for Plumbers', desc: 'Unify SMS and email so quotes, confirmations and "on-the-way" ETAs send automatically, with replies linked to the job. This mirrors how Australians communicate.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69255014005c9e03bc273a57_image%20(88).jpg' },
+    { title: 'Implement an AI Chatbot for Website', desc: 'Revolutionise your site\'s visitor experience with Sophiie, a cutting-edge AI Chatbot. Perfectly integrated, it provides instant, accurate information, enhancing engagement and trust.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925512f178c5cb68301366e_image%20(89).jpg' },
+    { title: 'Personalise Your AI with Sophiie\'s Training', desc: 'Get an AI that thinks and speaks like you. Our advanced Train Sophiie capability allows you to imbue your AI assistant with your business\'s unique voice and knowledge.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925518e36bac3c865cc903e_image%20(90).jpg' },
+];
+
+const steps = [
+    { num: '01', title: 'Set Up Your AI Engine', desc: 'Configure Sophiie\'s AI core by defining your service matrix, pricing rules, and operational regions for intelligent job qualification.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1ef53a94fab750c43fb75_ele-anim-1.json' },
+    { num: '02', title: 'Sync with Accounting & CRM', desc: 'Ensure real-time data synchronisation by connecting your accounting software (Xero) and existing field service management tools (e.g., ServiceM8) instantly.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1f026c410d388038f8318_ele-anim-2.json' },
+    { num: '03', title: 'Unify Communication Channels', desc: 'Consolidate all incoming inquiries. Route phone calls, web chat messages, and form submissions into Sophiie\'s system for instant, centralised management.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1f06ff9da6bd30333a269_ele-anim-3.json' },
+    { num: '04', title: 'Activate Job Lifecycle Management', desc: 'Take control of the full process. Automated call answering, job bookings, and messaging run concurrently, managing the entire job lifecycle with minimal input.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1f09fed7bfca785fc8da9_ele-anim-4.json' },
+];
+
+const faqs = [
+    { q: 'Can we keep using our existing CRM?', a: 'Yes. Use Zapier or API to push contacts, deals, and activities to your existing CRM. Field names can be mapped during setup to ensure data consistency.' },
+    { q: 'How does pricing work for plumbing businesses?', a: 'We offer simple, transparent plans with monthly billing. Pricing scales by seats and usage so solo plumbers, growing service teams, and multi-crew contractors only pay for what they need.' },
+    { q: 'What is the process to integrate Sophiie into my plumbing business?', a: 'Sign up, connect your existing calendar and Xero, add your plumbing services and rates, import client contacts, and then switch on AI phone answering and booking. Most teams go live the same day, and we provide comprehensive in-app guidance for setup.' },
+    { q: 'Will it work with our current calendar?', a: 'Yes. Two-way calendar sync (Google Calendar/Outlook) keeps your plumbing scheduling accurate, and Zapier integration can support other data synchronisation.' },
+    { q: 'Is 24/7 after-hours support included?', a: 'Yes. AI phone answering runs all day and night with emergency routing to on-call staff, plus transcripts and recordings are stored for audit and compliance.' },
+    { q: 'Can Sophiie book appointments directly into our calendar?', a: 'Yes. Sophiie syncs with Google Calendar, Outlook, and ServiceM8. Availability is checked to avoid double-bookings or clashes, and plumbing jobs can be assigned directly to the right technician.' },
+];
+
+const otherTrades = [
+    { href: '/trade/electricians', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6924501205a9a3c71accb77a_electri-img.jpg', alt: 'Electricians', title: 'AI Tools for Electricians', description: 'AI solutions that help electricians respond instantly to urgent fault calls, automate scheduling, and capture more high-value jobs.' },
+    { href: '/trade/air-conditioning-hvac', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692466d89b4cc953fd32bdc3_air-conditionar-card.jpg', alt: 'HVAC', title: 'AI for HVAC Business', description: 'AI tools that help HVAC technicians answer calls instantly, manage bookings, and respond faster to urgent jobs.' },
+    { href: '/trade/landscaping', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69258289d9b6ad65ad8cca95_image%20-%202025-11-25T154843.501.jpg', alt: 'Landscaping', title: 'AI Tools for Landscaping', description: 'AI solutions that help landscapers secure more bookings, manage scheduling, and respond faster to client inquiries.' },
+    { href: '/trade/carpenters', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692562bad17a7cc08013b320_image%20-%202025-11-25T133258.910.jpg', alt: 'Carpenters', title: 'AI Tools & Solutions for Carpenters', description: 'AI solutions designed to help carpenters automate calls, manage bookings, and stay organised.' },
+    { href: '/trade/builders-job', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69255e14f449e04a623a42c4_image%20-%202025-11-25T131242.057.jpg', alt: 'Builders', title: 'AI for Builders', description: 'AI-powered tools that help builders streamline calls, manage job schedules, and stay responsive to clients.' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>AI for Plumbers</title>
+    <meta name="description" content="Sophiie is AI Office Manager for plumbers that captures calls and online enquiries, schedules jobs, and keeps all communication in one central hub."/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Geist', 'Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eef8ff', 100: '#d9efff', light: '#9adcff', DEFAULT: '#36a5e1', dark: '#2b84b4', navy: '#081245' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .nav-dropdown { position: static; }
+        .nav-dropdown .nav-dropdown-menu { display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: 0.3s; position: absolute; top: 100%; left: 0; right: 0; padding-top: 30px; }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+        .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+        .nav-dropdown-arrow { transition: transform 0.3s ease-in-out; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .industry-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(transparent 0%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+    </style>
+</head>
+<body class="font-sans text-[#475467] antialiased bg-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false, activeFaq: null }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden" style="padding: 120px 0 0 70px;">
+    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/692414d9dd1accbfa1411b52_trade-img-abs.png" alt="" class="absolute inset-0 w-full h-auto object-cover" style="z-index: 0;"/>
+    <div class="relative" style="z-index: 1; padding-left: 12px;">
+        <div class="flex flex-col lg:flex-row items-center" style="max-width: 1198px;">
+            <!-- Left: Text -->
+            <div style="width: 503px; flex-shrink: 0;">
+                <div class="mb-0">
+                    <h1 class="text-[60px] font-semibold text-[#182230] leading-[72px] mb-4">AI Assistant for Plumbers</h1>
+                    <h2 class="text-[32px] font-bold text-[#475467] leading-[36px] mb-2.5">Run Your Plumbing Business Smarter with Our AI Office Manager</h2>
+                    <p class="text-lg text-[#1f2937] leading-[27px]">Sophiie is AI Office Manager for plumbers that captures calls and online enquiries, schedules jobs, and keeps all communication in one central hub. Fewer hours on admin. More time on the tools. Happier clients.</p>
+                </div>
+                <div class="flex items-center gap-11 mt-6 mb-6">
+                    <a href="https://app.sophiie.ai/onboarding" class="inline-flex items-center px-5 py-4 bg-[#2b84b4] text-white font-semibold rounded-[10px] hover:bg-brand-dark transition-all text-base">Get Started Free</a>
+                    <a href="/about-us" class="text-base font-semibold text-[#206387] hover:text-brand transition-colors">Learn more</a>
+                </div>
+                <!-- Google Review -->
+                <div class="mt-4">
+                    <p class="text-base text-[#4b5563] leading-6 italic mb-4">"I have been nothing if not super impressed with everything about this. The product itself is amazing and really easy to set up, and the support is fantastic as well. Very much loving Sophiie at the moment!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/692413d6c7b7410f04e6bcef_google-star.svg" alt="Google Stars" class="h-7"/>
+                        <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/6924141d7a971921abe4bdbf_google-review.svg" alt="Google Reviews" class="h-7"/>
+                    </div>
+                </div>
+            </div>
+            <!-- Right: Image -->
+            <div style="width: 695px; flex-shrink: 0;">
+                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925472d90f611815781b638_image%20(83).jpg" alt="Plumber" style="width: 635px; height: 754px; object-fit: cover;"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ RECEIVE A PHONE CALL ============ -->
+<section style="padding: 80px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Left: Form Card -->
+            <div class="lg:w-1/2 pr-0 lg:pr-4">
+                <div class="rounded-[28px] p-[10px]" style="background-color: #57ace5;">
+                <div class="bg-white rounded-[28px] p-8">
+                    <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px] mb-6">Receive a phone call from <span class="text-brand">Sophiie</span></h2>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-base font-normal text-[#182230] mb-1.5">First Name<span class="text-red-500">*</span></label>
+                                <input type="text" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none" required/>
+                            </div>
+                            <div>
+                                <label class="block text-base font-normal text-[#182230] mb-1.5">Last Name<span class="text-red-500">*</span></label>
+                                <input type="text" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none" required/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-base font-normal text-[#182230] mb-1.5">Email<span class="text-red-500">*</span></label>
+                                <input type="email" placeholder="Enter your email" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none" required/>
+                            </div>
+                            <div>
+                                <label class="block text-base font-normal text-[#182230] mb-1.5">Phone Number<span class="text-red-500">*</span></label>
+                                <input type="tel" placeholder="+61" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none" required/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-base font-normal text-[#182230] mb-1.5">Business Name<span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="Enter your business name" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none"/>
+                        </div>
+                        <div>
+                            <label class="block text-base font-normal text-[#182230] mb-1.5">Industry<span class="text-red-500">*</span></label>
+                            <select class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] outline-none" required>
+                                <option value="">Select your business industry</option>
+                                <option>Plumbing</option>
+                                <option>Construction &amp; Trades</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full py-[14.4px] px-5 bg-[#2b84b4] text-white text-sm font-semibold rounded-lg hover:bg-brand-dark transition-all">Get Sophiie to Call Me</button>
+                        <p class="text-xs text-center text-gray-400">No credit card required. No obligation. Just results.</p>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <!-- Right: Image -->
+            <div class="lg:w-1/2 flex justify-center">
+                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925478d7ef43ae5043db239_image%20(84).jpg" alt="Plumber at work" class="w-[538px] h-auto object-contain rounded-2xl"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HOW AI GROWS YOUR BUSINESS ============ -->
+<section style="padding: 96px 0 120px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="text-center mb-16">
+            <h2 class="text-[48px] font-semibold text-[#1f2937] leading-[60px]">How AI office manager grows your plumbing business</h2>
+        </div>
+
+        <div class="space-y-20">
+            {features.map((feature, idx) => (
+                <div class={`flex flex-col lg:flex-row items-center gap-12 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                    <div class="lg:w-1/2">
+                        <img src={feature.img} alt={feature.title} class="w-full h-auto rounded-[40px]"/>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <h3 class="text-[36px] font-semibold text-[#1f2937] leading-[43.2px] mb-4">{feature.title}</h3>
+                        <p class="text-base text-[#4b5563] leading-6">{feature.desc}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- ============ EASY SET UP STEPS ============ -->
+<section style="padding: 96px 0 120px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="text-center mb-16">
+            <h2 class="text-[48px] font-semibold text-[#1f2937] leading-[60px]">Easy Set Up Steps</h2>
+        </div>
+
+        <div class="space-y-6">
+            {steps.map((step, idx) => (
+                <div class="flex flex-col lg:flex-row items-center" style="height: 286px;">
+                    <div class="lg:w-[45%] flex-shrink-0">
+                        <div class="rounded-[20px] overflow-hidden" style="width: 499px; height: 286px;" id={`step-lottie-${idx}`} data-lottie-path={step.lottie}></div>
+                    </div>
+                    <div class="lg:w-[55%] lg:pl-10">
+                        <h3 class="text-[36px] font-semibold text-[#1f2937] leading-[43.2px] mb-3">{step.title}</h3>
+                        <p class="text-base text-[#4b5563] leading-6">{step.desc}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <script is:inline>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-lottie-path]').forEach(function(el) {
+                lottie.loadAnimation({
+                    container: el,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: el.getAttribute('data-lottie-path')
+                });
+            });
+        });
+        </script>
+    </div>
+</section>
+
+<!-- ============ OTHER BUSINESSES ============ -->
+<section style="padding: 96px 0;" x-data="{ scrollTrade(dir) { var el = $refs.tradeSlider; el.scrollBy({ left: dir * 383, behavior: 'smooth' }); } }">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex items-center justify-between mb-16">
+            <h2 class="text-[48px] font-semibold text-[#1f2937] leading-[52.8px]">Other Businesses We Serve</h2>
+            <div class="flex gap-5 flex-shrink-0">
+                <button @click="scrollTrade(-1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button @click="scrollTrade(1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="overflow-hidden">
+            <div x-ref="tradeSlider" class="flex gap-8 overflow-x-auto hide-scrollbar" style="scroll-snap-type: x mandatory;">
+                {otherTrades.map(trade => (
+                    <IndustryCard href={trade.href} img={trade.img} alt={trade.alt} title={trade.title} description={trade.description} />
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding: 80px 0;" x-data="{ activeFaq: null }">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row gap-0">
+            <div style="width: 603px; flex-shrink: 0;">
+                <h2 class="text-[48px] font-semibold text-[#1f2937] leading-[60px] mb-4">Frequently Asked Questions</h2>
+                <p class="text-base text-[#4b5563] leading-6">Quick solutions to frequently asked questions about Sophiie AI's features, setup and integration.</p>
+            </div>
+            <div style="width: 513px; flex-shrink: 0;" class="space-y-3">
+                {faqs.map((faq, idx) => (
+                    <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                        <button @click={`activeFaq = activeFaq === ${idx} ? null : ${idx}`} class="w-full flex justify-between items-center p-5 text-left">
+                            <span class="font-medium text-[#111827] text-lg leading-[28px] pr-4">{faq.q}</span>
+                            <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class={`{ 'rotate-180': activeFaq === ${idx} }`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div x-show={`activeFaq === ${idx}`} x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                            {faq.a}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ WORK SMARTER CTA ============ -->
+<section class="relative overflow-hidden" style="padding: 120px 0 88px; background: linear-gradient(to right, #36a5e1 0%, transparent 100%);">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="bg-white rounded-2xl overflow-hidden" style="padding: 0 30px;">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div style="width: 634px; flex-shrink: 0; padding: 60px 0;">
+                    <h2 class="text-[36px] font-semibold text-brand leading-[39.6px] mb-4">Work Smarter, Not Harder with Sophiie</h2>
+                    <p class="text-base text-[#182230] leading-6 mb-6">Sophiie is built to support the trades industry, giving you the freedom to focus on your craft while she handles the admin. From the first customer call to the final job summary, Sophiie ensures your business runs smoothly.</p>
+                    <a href="/free-demo-alt" class="inline-flex items-center px-6 py-[14px] bg-[#2b84b4] text-white font-semibold rounded-[10px] hover:bg-brand-dark transition-all text-base">Chat to Sophiie</a>
+                </div>
+                <div style="width: 422px; flex-shrink: 0;" class="flex justify-center">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e51feb87670d73d9f71e47_phone.webp" alt="Sophiie on phone" style="width: 347px; height: 725px; object-fit: contain;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<Footer />
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!-- ============ NAVBAR ============ -->
+<header :style="{ position: scrolled ? 'fixed' : 'absolute', backgroundColor: scrolled ? '#fff' : 'transparent', boxShadow: scrolled ? '0 10px 15px -3px rgba(0,0,0,0.055), 0 4px 6px -4px rgba(0,0,0,0.055)' : 'none' }" class="top-0 left-0 right-0 w-full z-[22222] py-[21px] transition-all duration-300" style="position: absolute;">
+    <div class="max-w-[1140px] mx-auto px-3 flex items-center justify-between relative">
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0">
+            <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d29b2f6718f18df776c86a_brand.svg" alt="Sophiie" class="w-24 h-10"/>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center" style="margin: 0 -16px;">
+            <a href="/about-us" class="text-sm font-bold text-[#475466] tracking-[-0.176px] hover:text-brand transition-colors" style="padding: 0 20px;">About</a>
+
+            <!-- Features Mega Menu -->
+            <div class="nav-dropdown" style="padding: 12px 16px;">
+                <button class="flex items-center gap-1 text-sm font-bold text-[#475466] tracking-[-0.176px] hover:text-brand transition-colors">
+                    Features
+                    <svg class="nav-dropdown-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <div class="bg-white rounded-3xl p-[24px_30px] shadow-[0_4px_6px_-4px_rgba(0,0,0,0.2),0_10px_15px_-3px_rgba(0,0,0,0.2)]">
+                    <div class="flex flex-wrap">
+                        <a href="/services/ai-phone-answering" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68e75996a61d1ace81e5069e_s-ap.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">AI Phone Answering</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Answers calls instantly, books appointments, and handles enquiries 24/7.</div>
+                            </div>
+                        </a>
+                        <a href="/services/ai-email-responder" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee1f71e9e6a4e9a2593da5_s-ae.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">AI Email Responder</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Answers calls instantly, books appointments, and handles enquiries 24/7.</div>
+                            </div>
+                        </a>
+                        <a href="/services/ai-text-messaging" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2741e1b6067f452ff8ca_s-at.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">AI Text Messaging</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Sends texts, follow-ups, and reminders to customers.</div>
+                            </div>
+                        </a>
+                        <a href="/services/smart-scheduling" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2c652825b6d5b8b1ed3c_s-ss.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Smart Scheduling</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Optimises job scheduling, reduces conflicts, and improves efficiency.</div>
+                            </div>
+                        </a>
+                        <a href="/services/ai-chatbot" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee311e24f9c580cff5afbd_s-ac.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">AI Chatbot</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Engages website visitors, answers FAQs, and captures leads.</div>
+                            </div>
+                        </a>
+                        <a href="/services/customer-crm" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee37b05d6d7391b0740b0a_s-cu.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Customer CRM</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Stores customer details, tracks interactions, and manages communications.</div>
+                            </div>
+                        </a>
+                        <a href="/services/jobs-manager" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee3c28e0d4958507e8c5bc_s-jm.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Jobs Manager</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Creates, assigns, and tracks jobs with updates.</div>
+                            </div>
+                        </a>
+                        <a href="/services/train-sophiie" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee4075c9daa8157f8e2487_s-tr.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Train Sophiie</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Customises Sophiie's responses to suit your business.</div>
+                            </div>
+                        </a>
+                        <a href="/services/invoicing" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee44596fa457fc11e431ac_file.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Invoicing</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Easily create, send, and track invoices to get paid faster.</div>
+                            </div>
+                        </a>
+                        <a href="/services/quoting" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69b41d9aeb6a14b01bf5dfda_68f1ddcca5b19828283bbffb_message-check-circle.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Quoting</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Captures job enquiries, books appointments, and manages scheduling.</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Industries Mega Menu -->
+            <div class="nav-dropdown" style="padding: 12px 16px;">
+                <button class="flex items-center gap-1 text-sm font-bold text-[#475466] tracking-[-0.176px] hover:text-brand transition-colors">
+                    Industries
+                    <svg class="nav-dropdown-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <div class="bg-white rounded-3xl p-[24px_30px] shadow-[0_4px_6px_-4px_rgba(0,0,0,0.2),0_10px_15px_-3px_rgba(0,0,0,0.2)]">
+                    <div class="flex flex-wrap">
+                        <a href="/trade/electricians" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692ebfadd1093ab75a5f1b69_flash.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Electricians</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Manages incoming calls, job enquiries, and scheduling for electrical work.</div>
+                            </div>
+                        </a>
+                        <a href="/trade/plumber" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692ebfe182bc10b883dc1989_oui_app-pipeline.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">Plumbers</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Handles emergency calls, books services, and keeps job details organised.</div>
+                            </div>
+                        </a>
+                        <a href="/trade/air-conditioning-hvac" class="flex items-center gap-3 w-[252px] p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 rounded-[10px] border border-gray-200 shadow-[inset_0_-2px_2px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
+                                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692ebfcde2eb29b91f622192_thermometer-cold.svg" alt="" class="w-[23px] h-[23px]"/>
+                            </div>
+                            <div>
+                                <div class="text-base font-semibold text-[#111827] leading-[1.2]">HVAC</div>
+                                <div class="text-sm text-[#4b5563] leading-[1.5] mt-0.5">Handles heating and cooling enquiries, books services, and reduces no-shows.</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <a href="/industries" class="text-[10px] font-semibold text-gray-400 hover:text-brand transition-colors">View All Industries &rarr;</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <a href="/news" class="text-sm font-bold text-[#475466] tracking-[-0.176px] hover:text-brand transition-colors" style="padding: 0 20px;">News</a>
+            <a href="/contact-us" class="text-sm font-bold text-[#475466] tracking-[-0.176px] hover:text-brand transition-colors" style="padding: 0 20px;">Contact Us</a>
+        </nav>
+
+        <!-- Right Buttons -->
+        <div class="hidden lg:flex items-center gap-3">
+            <a href="https://app.sophiie.ai/auth/sign-in" class="text-sm font-semibold text-[#206387] px-3 py-2 rounded-md hover:bg-blue-50 transition-colors">Log In</a>
+            <a href="https://app.sophiie.ai/onboarding" class="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2b84b4] text-white text-sm font-extrabold rounded-lg hover:bg-brand-dark transition-all">
+                Get Started
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-gray-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenuOpen" x-cloak x-transition class="lg:hidden bg-white border-t shadow-lg px-4 py-6 space-y-4">
+        <a href="/about-us" class="block text-gray-700 font-medium py-2">About</a>
+        <a href="/industries" class="block text-gray-700 font-medium py-2">Industries</a>
+        <a href="/news" class="block text-gray-700 font-medium py-2">News</a>
+        <a href="/contact-us" class="block text-gray-700 font-medium py-2">Contact Us</a>
+        <a href="https://app.sophiie.ai/auth/sign-in" class="block text-gray-700 font-medium py-2">Log In</a>
+        <a href="https://app.sophiie.ai/onboarding" class="block w-full text-center px-5 py-3 bg-[#2b84b4] text-white font-semibold rounded-lg">Get Started</a>
+    </div>
+</header>

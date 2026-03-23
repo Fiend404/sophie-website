@@ -1,0 +1,143 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import allArticles from '../../data/articles.json';
+
+const categories = ['View all', 'AI News & Breakthroughs', 'Behind the Scenes', 'Customer Stories', 'Help & Support', 'Smart Business', 'Sophiie Updates'];
+
+const featuredArticle = allArticles[0];
+const articles = allArticles;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>News & Updates | Sophiie AI Virtual Receptionist</title>
+    <meta name="description" content="The latest industry news, interviews, technologies, and resources from Sophiie AI."/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef8ff',
+                            100: '#d9efff',
+                            light: '#9adcff',
+                            DEFAULT: '#36a5e1',
+                            dark: '#2b84b4',
+                            navy: '#081245'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .nav-dropdown { position: static; }
+        .nav-dropdown .nav-dropdown-menu {
+            display: block; opacity: 0; visibility: hidden; pointer-events: none;
+            transition: 0.3s; position: absolute; top: 100%; left: 0; right: 0; padding-top: 30px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+        .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+        .nav-dropdown-arrow { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="font-sans text-[#475467] antialiased bg-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false, activeFilter: 'View all' }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<!-- ============ NEWS PAGE ============ -->
+<div style="padding: 116px 0 48px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+
+        <!-- H1 + Subtitle -->
+        <div class="mb-[86px]">
+            <h1 class="text-[48px] font-semibold text-[#182230] leading-[55.2px] tracking-[-0.96px] mb-3">Resources and insights</h1>
+            <p class="text-lg text-[#364153] leading-[27px]">The latest industry news, interviews, technologies, and resources.</p>
+        </div>
+
+        <!-- Featured Article Slider Card -->
+        <div class="relative rounded-2xl overflow-hidden mb-[86px]" style="height: 547px;">
+            <a href={`/news/${featuredArticle.slug}`} class="block w-full h-full">
+                <img src={featuredArticle.heroImg} alt={featuredArticle.title} class="w-full h-full object-cover"/>
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.7) 100%);"></div>
+                <div class="absolute bottom-0 left-0 p-10">
+                    <span class="inline-block text-sm text-white/80 mb-3">{featuredArticle.category}</span>
+                    <h2 class="text-[30px] font-semibold text-white leading-[36px] max-w-[600px]">{featuredArticle.title}</h2>
+                </div>
+            </a>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="flex items-center justify-between mb-10" style="height: 42px;">
+            <div class="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                    <button
+                        @click={`activeFilter = '${cat.replace(/'/g, "\\'")}'`}
+                        :class={`activeFilter === '${cat.replace(/'/g, "\\'")}' ? 'bg-[#007aff] text-white' : 'text-[#6a7282] hover:bg-gray-100'`}
+                        class="px-3 py-2 rounded-md text-sm transition-colors"
+                    >
+                        {cat}
+                    </button>
+                ))}
+            </div>
+            <div class="flex items-center gap-1.5 text-sm text-[#6a7282] flex-shrink-0">
+                <span>Most recent</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+        </div>
+
+        <!-- Article Cards Grid -->
+        <div class="flex flex-wrap -mx-[16px]">
+            {articles.map(article => (
+                <div class="w-full sm:w-1/2 lg:w-1/3 px-[16px] mb-[38px]">
+                    <ArticleCard
+                        slug={article.slug}
+                        title={article.title}
+                        heroImg={article.heroImg}
+                        description={article.description}
+                        category={article.category}
+                        imageHeight="175px"
+                        imageRounding="rounded-md"
+                    />
+                </div>
+            ))}
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200" style="height: 60px;">
+            <button class="px-[13px] py-[10px] border border-gray-200 rounded-lg text-sm text-[#364153] hover:bg-gray-50 transition-colors">Previous</button>
+            <div class="flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-[#007aff]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#d2d2d2]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#d2d2d2]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#d2d2d2]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#d2d2d2]"></span>
+            </div>
+            <button class="px-[13px] py-[10px] border border-gray-200 rounded-lg text-sm text-[#364153] hover:bg-gray-50 transition-colors">Next</button>
+        </div>
+
+    </div>
+</div>
+
+<Footer />
+
+</body>
+</html>

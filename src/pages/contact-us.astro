@@ -1,0 +1,273 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Contact Sophiie AI | Get in Touch</title>
+    <meta name="description" content="Get in touch with Sophiie AI. Our friendly team would love to hear from you. Visit us, call us, or send a message."/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef8ff',
+                            100: '#d9efff',
+                            light: '#9adcff',
+                            DEFAULT: '#36a5e1',
+                            dark: '#2b84b4',
+                            navy: '#081245'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .nav-dropdown {
+            position: static;
+        }
+        .nav-dropdown .nav-dropdown-menu {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.3s;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding-top: 30px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .nav-dropdown:hover .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .nav-dropdown-arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans text-[#475467] antialiased bg-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<!-- ============ HERO + FORM ============ -->
+<section style="padding: 108px 0 96px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Left: Image -->
+            <div class="lg:w-[47%] mb-10 lg:mb-0">
+                <img
+                    src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4dcbba28968a4d0917d3f_contact-bnr-img.webp"
+                    srcset="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4dcbba28968a4d0917d3f_contact-bnr-img-p-500.webp 500w, https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4dcbba28968a4d0917d3f_contact-bnr-img-p-800.webp 800w, https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4dcbba28968a4d0917d3f_contact-bnr-img.webp 1216w"
+                    sizes="(max-width: 768px) 100vw, 47vw"
+                    width="1216"
+                    height="1536"
+                    alt="contact image"
+                    class="w-full h-auto"
+                />
+            </div>
+
+            <!-- Right: Form -->
+            <div class="lg:w-[53%] lg:pl-[70px]">
+                <h1 class="text-[38px] font-bold text-[#101828] leading-[41.8px] tracking-[-0.8px] mb-2">We'd love to hear from you</h1>
+                <p class="text-lg text-[#364153] leading-[27px] mb-10">Our friendly team would love to hear from you.</p>
+
+                <form class="space-y-7">
+                    <!-- First + Last Name -->
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label for="First-Name" class="block text-base font-normal text-[#182230] mb-1.5">First Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="First-Name" name="First-Name" placeholder="First name" required class="w-full h-11 px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition"/>
+                        </div>
+                        <div>
+                            <label for="Last-Name" class="block text-base font-normal text-[#182230] mb-1.5">Last name <span class="text-red-500">*</span></label>
+                            <input type="text" id="Last-Name" name="Last-Name" placeholder="Last name" required class="w-full h-11 px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition"/>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="Email" class="block text-base font-normal text-[#182230] mb-1.5">Email <span class="text-red-500">*</span></label>
+                        <input type="email" id="Email" name="Email" placeholder="you@company.com" required class="w-full h-11 px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition"/>
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label for="Number" class="block text-base font-normal text-[#182230] mb-1.5">Phone <span class="text-red-500">*</span></label>
+                        <input type="tel" id="Number" name="Number" placeholder="What's your phone number" class="w-full h-11 px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition"/>
+                    </div>
+
+                    <!-- Describe Yourself -->
+                    <div>
+                        <label for="How-do-you-best-describe-yourself" class="block text-base font-normal text-[#182230] mb-1.5">How do you best describe yourself? <span class="text-red-500">*</span></label>
+                        <select id="How-do-you-best-describe-yourself" name="How-do-you-best-describe-yourself" required class="w-full h-11 px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition">
+                            <option value="Please select an option">Please select an option</option>
+                            <option value="I'm an existing Sophiie AI client">I'm an existing Sophiie AI client</option>
+                            <option value="I'm looking for a software solution">I'm looking for a software solution</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label for="Message" class="block text-base font-normal text-[#182230] mb-1.5">Message <span class="text-red-500">*</span></label>
+                        <textarea id="Message" name="Message" placeholder="Leave us a message..." required maxlength="5000" class="w-full h-[104px] px-3 py-2 bg-white border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition resize-none"></textarea>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree" name="agree" required class="w-5 h-5 mt-0.5 rounded border-[#d1d5db] text-brand focus:ring-brand/20"/>
+                        <label for="agree" class="text-base text-[#475467]">You agree to our friendly <a href="/privacy-policy" class="underline text-[#475467]">privacy policy</a>.</label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="w-full h-[50px] bg-[#51a2ff] text-white text-base font-medium rounded-lg hover:bg-[#4090ee] transition-all duration-300">
+                        Send message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CONTACT CARDS ============ -->
+<section style="padding: 10px 0 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-wrap -mx-3" style="min-height: 374px;">
+            <!-- Visit Us -->
+            <div class="w-full md:w-1/3 px-3 flex">
+                <div class="bg-[#fafafa] rounded-lg flex-1" style="padding: 23px 25px 26px;">
+                    <div class="w-14 h-14 mb-10">
+                        <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e184c5833b991cf3a21f_contact-location.png" alt="location icon" class="w-full h-full object-contain"/>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-[#101828] mb-1">Visit us</h3>
+                        <p class="text-base text-[#4a5565] leading-6 mb-3">Visit our office HQ.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=17/3142+Surfers+Paradise+Blvd,+Surfers+Paradise,+QLD+4217,+Australia" target="_blank" class="text-base font-semibold text-[#101828] leading-6 hover:text-brand transition-colors">
+                            Suite 6A, 50 Appel Street<br/>Surfers Paradise<br/>QLD 4217, Australia
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call Us -->
+            <div class="w-full md:w-1/3 px-3 flex">
+                <div class="bg-[#fafafa] rounded-lg flex-1" style="padding: 23px 25px 26px;">
+                    <div class="w-14 h-14 mb-10">
+                        <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e184ea977e879901e8c1_contact-ph.png" alt="phone icon" class="w-full h-full object-contain"/>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-[#101828] mb-1">Call us</h3>
+                        <p class="text-base text-[#4a5565] leading-6 mb-3">Mon-Fri from 9am to 5pm.</p>
+                        <a href="tel:+61756466062" class="block text-base text-[#4a5565] leading-6 hover:text-brand transition-colors">
+                            Sales:<br/><strong class="text-[#101828]">+61 7 5646 6062</strong>
+                        </a>
+                        <a href="tel:+61756204640" class="block text-base text-[#4a5565] leading-6 mt-2 hover:text-brand transition-colors">
+                            Support (Existing Customers):<br/><strong class="text-[#101828]">+61 7 5620 4640</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Follow Us -->
+            <div class="w-full md:w-1/3 px-3 flex">
+                <div class="bg-[#fafafa] rounded-lg flex-1" style="padding: 23px 25px 26px;">
+                    <div class="w-14 h-14 mb-10">
+                        <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e18419e0ecab09c8ee0b_contact-phone.png" alt="social icon" class="w-full h-full object-contain"/>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold text-[#101828] mb-1">Follow us</h3>
+                        <p class="text-base text-[#4a5565] leading-6 mb-3">Follow our social medias.</p>
+                        <ul class="flex gap-6">
+                            <li>
+                                <a href="https://x.com/sophiieAI" target="_blank" class="block">
+                                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e57b5486aef40462a156_con-twitter.svg" alt="twitter" class="w-6 h-6"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://linkedin.com/company/sophiie-ai" target="_blank" class="block">
+                                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e57b5696c28a8e6af9b0_con-linked.svg" alt="linkedin" class="w-6 h-6"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/profile.php?id=61561630720828" target="_blank" class="block">
+                                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e57b16e6e02ae634b8d0_con-facebook.svg" alt="facebook" class="w-6 h-6"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/sophiie.aii/" target="_blank" class="block">
+                                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e57bf1b1d3aa0845da5e_con-instagram.svg" alt="instagram" class="w-6 h-6"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ OUR LOCATION ============ -->
+<section class="bg-[#eff6ff]" style="padding: 63px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header Row -->
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-20">
+            <h2 class="text-[48px] font-semibold text-[#1e2939] leading-[52.8px] tracking-[-0.96px]">Our Location</h2>
+            <div class="flex items-center gap-3 mt-4 lg:mt-0">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4e184c5833b991cf3a21f_contact-location.png" alt="location icon" class="w-6 h-6"/>
+                <p class="text-base text-[#4a5565] leading-6">Suite 6A, 50 Appel Street, Surfers Paradise QLD 4217, Australia</p>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <a href="https://www.google.com/maps/search/?api=1&query=17/3142+Surfers+Paradise+Blvd,+Surfers+Paradise,+QLD+4217,+Australia" target="_blank" class="block rounded-2xl overflow-hidden">
+            <img
+                src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4f3d8981ae413931e30f8_staticmap-web.webp"
+                alt="static map image"
+                class="w-full h-auto"
+            />
+        </a>
+    </div>
+</section>
+
+<!-- ============ READY TO MEET SOPHIIE ============ -->
+<section style="padding: 80px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="rounded-2xl text-center" style="background: linear-gradient(to right, #7dd3ff 0%, #4aa9ff 100%); padding: 75px 64px;">
+            <h2 class="text-[40px] font-semibold text-white leading-[44px] tracking-[-0.8px] mb-4">Ready to Meet Sophiie?</h2>
+            <p class="text-lg text-white leading-[27px] max-w-[600px] mx-auto mb-8">Discover how Sophiie can transform the way you handle calls. Don't let another lead slip through the cracks—let Sophiie answer your calls with style and precision!</p>
+            <a href="/free-demo-alt" class="inline-flex items-center px-5 py-[15.5px] bg-white text-[#182230] text-base font-semibold rounded-[10px] border border-[#d1d5db] hover:bg-gray-50 transition-all">
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
+<Footer />
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+---
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+    heading?: string;
+    subtitle?: string;
+    ctaText?: string;
+    ctaHref?: string;
+    ctaStyle?: 'filled' | 'outlined';
+    articles: Array<{slug: string; title: string; heroImg: string; description: string; category?: string}>;
+    showCategory?: boolean;
+    showArrow?: boolean;
+    imageHeight?: string;
+}
+
+const {
+    heading = 'From the blog',
+    subtitle = 'The latest industry news, interviews, technologies, and resources.',
+    ctaText = 'View all posts',
+    ctaHref = '/news',
+    ctaStyle = 'filled',
+    articles,
+    showCategory = true,
+    showArrow = true,
+    imageHeight = '200px',
+} = Astro.props;
+
+const btnClass = ctaStyle === 'filled'
+    ? 'bg-[#2b84b4] text-white hover:bg-[#2470a0]'
+    : 'border border-[#d1d5db] text-[#374151] hover:bg-gray-50';
+---
+
+<div class="flex flex-col lg:flex-row items-start gap-10">
+    <div class="lg:w-[38%]">
+        <h2 class="text-[36px] font-semibold text-[#182230] leading-[39.6px] mb-4">{heading}</h2>
+        <p class="text-base text-[#475466] leading-6 mb-6">{subtitle}</p>
+        <a href={ctaHref} class={`inline-flex items-center px-[26px] py-[15px] text-sm font-semibold rounded-[10px] transition-colors ${btnClass}`}>
+            {ctaText}
+        </a>
+    </div>
+    <div class="lg:w-[62%]">
+        <div class="flex flex-wrap">
+            {articles.map(article => (
+                <div class="w-full sm:w-1/2" style="padding: 10px 24px;">
+                    <ArticleCard
+                        slug={article.slug}
+                        title={article.title}
+                        heroImg={article.heroImg}
+                        description={article.description}
+                        category={article.category}
+                        showCategory={showCategory}
+                        showArrow={showArrow}
+                        imageHeight={imageHeight}
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+</div>

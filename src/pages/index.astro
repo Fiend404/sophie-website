@@ -1,17 +1,957 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import IndustryCard from '../components/IndustryCard.astro';
+import FromTheBlog from '../components/FromTheBlog.astro';
+import allArticles from '../data/articles.json';
+
+const newsArticles = allArticles.slice(0, 2);
+
+const industries = [
+    { href: '/trade/electricians', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6924501205a9a3c71accb77a_electri-img.jpg', alt: 'Electricians', title: 'AI Tools for Electricians', description: 'AI solutions that help electricians respond instantly to urgent fault calls, automate scheduling, and capture more high-value jobs.' },
+    { href: '/trade/plumber', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69254715b77c21d1739f3e5e_image%20(82).jpg', alt: 'Plumbers', title: 'AI for Plumbers', description: 'AI for plumbers that captures emergency calls instantly, automates job scheduling, and helps you secure more work.' },
+    { href: '/trade/air-conditioning-hvac', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692466d89b4cc953fd32bdc3_air-conditionar-card.jpg', alt: 'HVAC', title: 'AI for HVAC Business', description: 'AI tools that help HVAC technicians answer calls instantly, manage bookings, and respond faster to urgent jobs.' },
+    { href: '/trade/landscaping', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69258289d9b6ad65ad8cca95_image%20-%202025-11-25T154843.501.jpg', alt: 'Landscaping', title: 'AI Tools for Landscaping', description: 'AI solutions that help landscapers secure more bookings, manage scheduling, and respond faster to client inquiries.' },
+    { href: '/trade/carpenters', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692562bad17a7cc08013b320_image%20-%202025-11-25T133258.910.jpg', alt: 'Carpenters', title: 'AI Tools & Solutions for Carpenters', description: 'AI solutions designed to help carpenters automate calls, manage bookings, and stay organised while taking on more high-value jobs.' },
+    { href: '/trade/cleaners', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925676781684d98b04b9155_image%20-%202025-11-25T135256.583.jpg', alt: 'Cleaners', title: 'AI for Cleaning Business', description: 'AI tools that help cleaning businesses secure more bookings, automate inquiries, and stay organised with faster job scheduling.' },
+    { href: '/trade/professional-painters', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69258bd0c7a06d185eb6ad19_image%20-%202025-11-25T162819.191.jpg', alt: 'Painters', title: 'AI for Painters', description: 'AI-powered solutions that help painters manage calls, schedule jobs faster, and stay fully booked with less admin.' },
+    { href: '/trade/roofing', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/692571b841fadfa837a80726_image%20-%202025-11-25T143658.887.jpg', alt: 'Roofing', title: 'AI Tools for Roofing Companies', description: 'AI tools that help roofing contractors capture urgent calls, book inspections faster, and streamline job management.' },
+    { href: '/trade/concreting', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69256f29d72ae105a9d65797_image%20-%202025-11-25T142602.642.jpg', alt: 'Concreting', title: 'AI Tools for Concrete Specialists', description: 'AI for concreters that automates calls, manages schedules, and helps you secure more jobs without the admin overload.' },
+    { href: '/trade/fencing', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925744f7078bc023ebc9f07_image%20-%202025-11-25T144758.679.jpg', alt: 'Fencing', title: 'AI Tools for Fencing Contractors', description: 'AI-powered tools that help fencing contractors handle inquiries faster, streamline quotes, and keep projects on schedule.' },
+    { href: '/trade/fire-services', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925773f4abf5eccfa8847d9_image%20-%202025-11-25T150034.599.jpg', alt: 'Fire Services', title: 'AI Tools for Fire Service Ops', description: 'AI tools that support fire service contractors with instant call answering, job scheduling, and improved compliance workflows.' },
+    { href: '/trade/flooring', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69257a3d7078bc023ebebbab_image%20-%202025-11-25T151316.373.jpg', alt: 'Flooring', title: 'AI Tools for Flooring Specialists', description: 'AI that helps flooring specialists manage client inquiries, book jobs faster, and streamline operations from quote to installation.' },
+    { href: '/trade/handyman-property-maintenance', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69257df26e511284e6f82313_image%20-%202025-11-25T152908.832.jpg', alt: 'Handyman', title: 'AI Receptionist for Handyman Services', description: 'AI tools for handymen and property maintenance pros to automate calls, capture more jobs, and simplify scheduling.' },
+    { href: '/trade/plastering', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69258504e86301a387ba48f6_image%20-%202025-11-25T155918.380.jpg', alt: 'Plasterers', title: 'AI tools for Plasterers', description: 'AI tools for plasterers to handle calls, manage bookings, and keep jobs running smoothly without admin delays.' },
+    { href: '/trade/pool-maintenance', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69258905e5e2a020c6b73d46_image%20-%202025-11-25T161623.803.jpg', alt: 'Pool Cleaners', title: 'AI Tools for Pool Cleaners', description: 'AI tools that help pool maintenance specialists automate client communication, streamline bookings, and manage recurring jobs.' },
+    { href: '/trade/bricklaying', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69255ae4c797f749c232061f_image%20-%202025-11-25T125933.237.jpg', alt: 'Bricklaying', title: 'AI for Bricklaying Contractors', description: 'Boost your bricklaying business with AI that handles calls, scheduling, quotes, and job management.' },
+    { href: '/trade/arborist', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/6925539e8029f84e594d70ad_image%20(91).jpg', alt: 'Arborists', title: 'AI Tools & Solutions for Arborists', description: 'AI tools that help arborists manage bookings, answer calls instantly, and schedule tree work faster.' },
+    { href: '/trade/builders-job', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/69255e14f449e04a623a42c4_image%20-%202025-11-25T131242.057.jpg', alt: 'Builders', title: 'AI for Builders', description: 'AI-powered tools that help builders streamline calls, manage job schedules, and stay responsive to clients.' },
+];
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>AI Virtual Receptionist Australia | Sophiie AI</title>
+    <meta name="description" content="Sophiie is the best AI virtual receptionist in Australia. Streamline admin, answer calls instantly, and book jobs 24/7 for your service-business."/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef8ff',
+                            100: '#d9efff',
+                            light: '#9adcff',
+                            DEFAULT: '#36a5e1',
+                            dark: '#2b84b4',
+                            navy: '#081245'
+                        }
+                    },
+                    animation: {
+                        'shimmer': 'shimmer 5s linear infinite',
+                        'float-y': 'float-y 3s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'shimmer': {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        },
+                        'float-y': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.5 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .bnr-not-txt {
+            color: #44aee6;
+            background-image: url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b4053695f05f8fbd37cdc5_h1-shape.svg');
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            background-size: 100% auto;
+            padding-bottom: 4px;
+        }
+        .text-gradient-blue {
+            background: linear-gradient(245.38deg, #36a5e1 29.35%, #36a5e1 39.7%, #36a5e1 44.84%, #36a5e1 48.8%, #36a5e1 64.16%, #9adcff 70.27%, #36a5e1 73.47%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+        .text-gradient-navy {
+            background: linear-gradient(90deg, #081245 0%, #081245 40%, #99dbff 50%, #081245 60%, #081245 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer-navy 5s linear infinite;
+        }
+        @keyframes shimmer-navy {
+            0% { background-position: 100% center; }
+            100% { background-position: -100% center; }
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        .banner-section-bg {
+            background: linear-gradient(177deg, #f2f6f9, #bee2ff 80%, #c1e3fe 70%, #afdfff);
+        }
+        .banner-gradient {
+            background: linear-gradient(137deg,
+                rgba(255,255,255,0.4) -0.46%,
+                rgba(183,230,255,0.4) 29.09%,
+                rgba(255,255,255,0.4) 44.85%,
+                rgba(154,220,255,0.4) 57.17%,
+                rgba(54,165,225,0.4) 67.51%,
+                rgba(154,220,255,0.4) 82.78%,
+                rgba(255,255,255,0.4) 98.05%);
+        }
+        .banner-lwr {
+            background-color: #57ace5;
+            background-image: linear-gradient(40deg, transparent 0% 40%, #a9e0fe 50%, transparent 60% 100%);
+            background-size: 200% 100%;
+            animation: shine-border 5s linear infinite;
+        }
+        @keyframes shine-border {
+            0%, 10% { background-position: -1000px; }
+            100% { background-position: 1000px; }
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .nav-dropdown {
+            position: static;
+        }
+        .nav-dropdown .nav-dropdown-menu {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.3s;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding-top: 30px;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .nav-dropdown:hover .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .nav-dropdown-arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .industry-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent 0%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-slate-50 overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<!-- ============ HERO ============ -->
+<section class="relative pt-[130px] pb-0 overflow-hidden banner-section-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Badge -->
+        <div class="relative inline-block bg-[#dbf3ff] rounded-[50px] pl-[30px] pr-[18px] py-[7.5px] mb-9 text-sm font-medium text-[#196d9a] leading-[21px]">
+            <span class="absolute left-[15px] top-[18px] w-2 h-2 bg-green-400 rounded-full"></span>
+            The AI Office Manager for Trades &amp; Services
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-[40px] sm:text-[50px] md:text-[60px] font-bold leading-[66px] mb-2.5 text-[#475467]">
+            <span class="bnr-not-txt">Not</span> <span class="text-gradient-blue">Just an AI Receptionist</span><br/>
+            <span class="text-gradient-navy">Your Entire Front Office!</span>
+        </h1>
+
+        <p class="max-w-[584px] mx-auto text-base text-[#182230] mb-2.5 leading-6">
+            Sophiie answers calls, books jobs, send quotes &amp; invoices, smart schedules, dispatches your team, manages jobs and follows up with customers.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-[23px]">
+            <a href="https://app.sophiie.ai/onboarding" class="inline-flex items-center justify-center px-[26px] py-[15px] border border-[rgba(58,165,223,0.3)] text-[#2b84b4] font-semibold rounded-[10px] transition-all duration-300 hover:bg-[#2b84b4] hover:text-white text-base w-full sm:w-auto">
+                Get Started
+            </a>
+            <a href="/free-demo-alt" class="inline-flex items-center justify-center px-5 py-[14.5px] bg-[#2b84b4] text-white font-semibold rounded-[10px] transition-all duration-300 hover:bg-brand-dark hover:shadow-lg text-base w-full sm:w-auto">
+                Chat to Sophiie
+            </a>
+        </div>
+
+        <div class="flex items-center justify-center gap-5 mt-[27px] text-sm text-[#6b7280]">
+            <span>No credit card needed</span>
+            <span>307k+ calls answered</span>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="mt-12 relative max-w-5xl mx-auto">
+            <!-- Outer gradient border -->
+            <div class="banner-gradient rounded-[30px_30px_0_0] p-5 pb-0">
+                <!-- Inner shimmer bar -->
+                <div class="banner-lwr rounded-[30px_30px_0_0] p-[25px_20px_0]">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d2a88c6dcf5db3f99ca173_banner-img.webp" alt="Sophiie AI Dashboard" class="w-full h-auto rounded-t-2xl"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ RECEIVE A PHONE CALL ============ -->
+<section class="pt-24 pb-0">
+    <div class="max-w-[1140px] mx-auto px-3 relative">
+        <!-- Background image -->
+        <div class="absolute inset-0 overflow-hidden" style="z-index: 0;">
+            <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d5100fa58204b249907193_received-frm-call-bg.webp" alt="" class="w-full h-full object-cover"/>
+        </div>
+        <div class="max-w-[1003px] mx-auto flex flex-col lg:flex-row items-center relative" style="z-index: 1;">
+            <!-- Left: Form Card -->
+            <div class="lg:w-1/2 py-16 pr-0 lg:pr-4">
+                <!-- Blue outer wrapper -->
+                <div class="banner-lwr rounded-[28px] p-3">
+                    <!-- White inner card -->
+                    <div class="bg-white rounded-[28px]">
+                        <div class="pt-[30px] px-5 pb-5">
+                            <!-- H2 inside card -->
+                            <h2 class="text-[36px] font-semibold text-[#182230] leading-[39.6px] mb-6">
+                                Receive a phone call<br/>from <span class="text-gradient-blue">Sophiie</span>
+                            </h2>
+
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-base font-normal text-[#182230] mb-1.5">First Name<span class="text-red-500">*</span></label>
+                                        <input type="text" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition" required/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-base font-normal text-[#182230] mb-1.5">Last Name<span class="text-red-500">*</span></label>
+                                        <input type="text" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition" required/>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-base font-normal text-[#182230] mb-1.5">Email<span class="text-red-500">*</span></label>
+                                        <input type="email" placeholder="Enter your email" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition" required/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-base font-normal text-[#182230] mb-1.5">Phone Number<span class="text-red-500">*</span></label>
+                                        <div class="flex h-11 border border-[#d1d5db] rounded-lg overflow-hidden bg-gray-50">
+                                            <div class="flex items-center gap-1 px-2 border-r border-[#d1d5db] bg-white text-sm">
+                                                <span>🇦🇺</span>
+                                                <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                            </div>
+                                            <input type="tel" placeholder="+61" class="flex-1 px-3 py-2 bg-gray-50 text-sm text-[#333] outline-none" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-base font-normal text-[#182230] mb-1.5">Business Name<span class="text-red-500">*</span></label>
+                                    <input type="text" placeholder="Enter your business name" class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition"/>
+                                </div>
+                                <div>
+                                    <label class="block text-base font-normal text-[#182230] mb-1.5">Industry<span class="text-red-500">*</span></label>
+                                    <select class="w-full h-11 px-3 py-2 bg-gray-50 border border-[#d1d5db] rounded-lg text-sm text-[#333] focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition" required>
+                                        <option value="">Select your business industry</option>
+                                        <option>Automotive Services</option>
+                                        <option>Construction &amp; Trades</option>
+                                        <option>Financial Services</option>
+                                        <option>Health &amp; Wellness</option>
+                                        <option>Legal</option>
+                                        <option>Medical &amp; Healthcare</option>
+                                        <option>Professional Services</option>
+                                        <option>Technology &amp; IT</option>
+                                        <option>Tourism &amp; Hospitality</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full py-[14.4px] px-5 bg-[#2b84b4] text-white text-sm font-semibold rounded-lg hover:bg-brand-dark transition-all duration-300">
+                                    Get Sophiie to Call Me
+                                </button>
+                                <p class="text-xs text-center text-gray-400">No credit card required. No obligation. Just results.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Phone Image -->
+            <div class="lg:w-1/2 flex justify-center">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1df5d8132b99ef29e1c49_received-ph-image.webp" alt="Sophiie calling demo" class="w-[335px] h-auto object-contain"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ WHAT CAN SOPHIIE DO (TABS) ============ -->
+<section class="pt-20 pb-[100px]" x-data="{ activeTab: 0, shown: true }">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header -->
+        <div class="text-center mb-12 max-w-[670px] mx-auto">
+            <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px] mb-[25px]">What Can Sophiie Run<br/>Your Entire Office?</h2>
+            <p class="text-base text-[#4b5563] leading-6">Sophiie takes care of the day-to-day reception tasks, making life easier for you and your team.</p>
+        </div>
+
+        <!-- Tab Pill Bar -->
+        <div class="relative mb-[88px] flex justify-center">
+            <div id="tabBar" class="bg-[#f7fbfe] border border-[#d7edf9] rounded-2xl px-1 inline-flex items-center relative" style="height: 66px;">
+                <div id="tabSlider" class="absolute h-[50px] bg-[#2b84b4] rounded-md" style="z-index: 0; top: 50%; transform: translateY(-50%); transition: left 0.3s, width 0.3s; opacity: 0;"></div>
+                <button data-tab="0" @click="activeTab = 0; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 0 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-white relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Answers Calls</button>
+                <button data-tab="1" @click="activeTab = 1; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 1 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-[#4b5563] relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Responds to Emails</button>
+                <button data-tab="2" @click="activeTab = 2; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 2 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-[#4b5563] relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Responds to Texts</button>
+                <button data-tab="3" @click="activeTab = 3; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 3 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-[#4b5563] relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Chatbot</button>
+                <button data-tab="4" @click="activeTab = 4; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 4 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-[#4b5563] relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Jobs</button>
+                <button data-tab="5" @click="activeTab = 5; shown = false; setTimeout(() => shown = true, 50)" :class="activeTab === 5 ? 'text-white' : 'text-[#4b5563]'" class="tab-btn text-[#4b5563] relative z-10 px-3.5 py-4 text-base font-medium transition-colors duration-200 whitespace-nowrap">Customer CRM</button>
+            </div>
+        </div>
+        <script is:inline>
+        document.addEventListener('DOMContentLoaded', function() {
+            var bar = document.getElementById('tabBar');
+            var slider = document.getElementById('tabSlider');
+            var btns = bar.querySelectorAll('.tab-btn');
+            var currentIdx = 0;
+            function moveSlider(btn) {
+                var r = btn.getBoundingClientRect();
+                var p = bar.getBoundingClientRect();
+                slider.style.left = (r.left - p.left + 3) + 'px';
+                slider.style.width = r.width + 'px';
+            }
+            btns.forEach(function(btn, i) {
+                btn.addEventListener('click', function() { currentIdx = i; moveSlider(btn); });
+            });
+            moveSlider(btns[0]);
+            slider.style.opacity = '1';
+            window.addEventListener('resize', function() { moveSlider(btns[currentIdx]); });
+        });
+        </script>
+
+        <!-- Tab Content: Cards LEFT, Image RIGHT -->
+        <div class="flex flex-col lg:flex-row" :style="{ opacity: shown ? 1 : 0, transform: shown ? 'translateY(0)' : 'translateY(50px)', transition: shown ? 'opacity 0.8s, transform 0.8s' : 'none' }">
+            <!-- Left: 4 Feature Cards (2x2 grid) -->
+            <div class="lg:w-[52%]">
+                <div class="flex flex-wrap -mx-4 -my-6">
+                    <!-- Tab 0: Answers Calls -->
+                    <div x-show="activeTab === 0" class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Lead Capturing Pro</h4><p class="text-base text-[#4b5563] leading-6">She gathers essential details from callers, like names, contact info, and service needs, so you never miss an opportunity.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Real-Time Call Summaries</h4><p class="text-base text-[#4b5563] leading-6">Sophiie sends detailed summaries straight to your inbox or CRM, so you always know what's happening.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Efficient Call Handling</h4><p class="text-base text-[#4b5563] leading-6">Whether it's booking appointments, answering FAQs, or taking messages, Sophiie gets it done without breaking a sweat.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Smart Call Transfers</h4><p class="text-base text-[#4b5563] leading-6">Sophiie seamlessly routes callers to the right person, team, or department. No confusion, no delays.</p></div>
+                        </div>
+                    <div x-show="activeTab === 1" x-cloak class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Fast and Friendly Responses</h4><p class="text-base text-[#4b5563] leading-6">Sophiie drafts emails with lightning speed, customised to reflect your brand's unique tone and style.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Writes Like Magic</h4><p class="text-base text-[#4b5563] leading-6">Tell Sophiie what you want to say, and she'll craft the perfect email for you--no fuss, no hassle.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Knowledge-Based Replies</h4><p class="text-base text-[#4b5563] leading-6">Sophiie taps into your business's knowledge base to deliver accurate, informed responses.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Attachment Library</h4><p class="text-base text-[#4b5563] leading-6">Upload frequently used documents, and Sophiie will include them in emails as needed.</p></div>
+                        </div>
+                    <div x-show="activeTab === 2" x-cloak class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Write Smarter, Not Harder</h4><p class="text-base text-[#4b5563] leading-6">Use Sophiie's AI to draft professional, friendly, or casual replies tailored to your brand.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Keep Everything in One Place</h4><p class="text-base text-[#4b5563] leading-6">Manage all your text conversations directly from your Sophiie dashboard.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Save Time with Suggestions</h4><p class="text-base text-[#4b5563] leading-6">Sophiie's AI suggests responses based on the conversation, making it easy to reply faster.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Customised Messaging</h4><p class="text-base text-[#4b5563] leading-6">Add your personal touch to AI-drafted texts to ensure every reply feels authentic.</p></div>
+                        </div>
+                    <div x-show="activeTab === 3" x-cloak class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Answering FAQs</h4><p class="text-base text-[#4b5563] leading-6">Visitors get instant answers to common questions, from pricing to service details.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Booking Appointments</h4><p class="text-base text-[#4b5563] leading-6">Sophiie can guide customers through the booking process seamlessly.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Collecting Enquiries</h4><p class="text-base text-[#4b5563] leading-6">Capture leads by gathering names, emails, and service needs in real-time.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Redirecting Complex Queries</h4><p class="text-base text-[#4b5563] leading-6">When a human touch is needed, Sophiie flags enquiries for your team to follow up.</p></div>
+                        </div>
+                    <div x-show="activeTab === 4" x-cloak class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Track Job Details</h4><p class="text-base text-[#4b5563] leading-6">View all job-related information in one place, including descriptions, history, and allocated team members.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Status Updates</h4><p class="text-base text-[#4b5563] leading-6">Easily update and track job statuses, such as pending, in progress, or completed.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Scheduled Times</h4><p class="text-base text-[#4b5563] leading-6">Keep your calendar organised with clearly displayed job schedules.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Job-Specific Reminders</h4><p class="text-base text-[#4b5563] leading-6">Stay on top of deadlines and follow-ups with custom reminders for each job.</p></div>
+                        </div>
+                    <div x-show="activeTab === 5" x-cloak class="contents">
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975eda9586684621e326_tab-icon1.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Centralised Customer Hub</h4><p class="text-base text-[#4b5563] leading-6">Keep all your customer details in one easy-to-access location.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975ed81ccced0135d451_tab-icon2.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Call, Email, or Text</h4><p class="text-base text-[#4b5563] leading-6">Reach out to your customers directly from the dashboard without jumping between apps.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d39760631376bbcc1bde04_tab-icon3.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Detailed Notes</h4><p class="text-base text-[#4b5563] leading-6">Record important details from conversations or meetings to ensure nothing gets forgotten.</p></div>
+                            <div class="w-1/2 px-4 py-6"><div class="w-14 h-14 rounded-xl bg-cover bg-center mb-4 flex items-center justify-center shadow-[inset_0_0_0_1.17px_rgba(255,255,255,0.2),inset_0_-2.33px_0_rgba(255,255,255,0.05)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.05)]" style="background-image:url('https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d398b5863b4018d200f806_tab-iconbg.webp')"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975e27e9dcdabc7eb2ab_tab-icon4.svg" alt="" class="w-[22px]"/></div><h4 class="text-2xl font-semibold text-[#1f2937] leading-[1.3] mb-2">Set Reminders</h4><p class="text-base text-[#4b5563] leading-6">Stay on top of follow-ups, appointments, and deadlines with Sophiie's built-in reminder system.</p></div>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Right: Tab Screenshot Image -->
+            <div class="lg:w-[48%] pl-0 lg:pl-12">
+                <img x-show="activeTab === 0" src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3975f9cea43e15bc3e9f7_tab-view-img1.webp" alt="Answers Calls" class="w-full"/>
+                <img x-show="activeTab === 1" x-cloak src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3bcc40b13386bba200764_tab-view-img2.webp" alt="Email Responder" class="w-full"/>
+                <img x-show="activeTab === 2" x-cloak src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3bcc41983c037fe0fc2b1_tab-view-img3.webp" alt="Text Messaging" class="w-full"/>
+                <img x-show="activeTab === 3" x-cloak src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3e82a2348a9eaa5bb3f23_tab--view4.webp" alt="Chatbot" class="w-full"/>
+                <img x-show="activeTab === 4" x-cloak src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3bcc5bd3a729c69d1e866_tab-view-img5.webp" alt="Jobs Manager" class="w-full"/>
+                <img x-show="activeTab === 5" x-cloak src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d3bcc5ec0ecb11b992bde4_tab-view-img6.webp" alt="Customer CRM" class="w-full"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MILESTONES / STATS ============ -->
+<section class="py-20 relative">
+    <!-- Background image -->
+    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d38e755eb8a35247f0b021_milestone-bg.webp" alt="" class="absolute inset-0 w-full h-full object-fill" style="z-index: -1;"/>
+    <div class="max-w-[1140px] mx-auto px-3 relative">
+        <div class="flex flex-wrap -m-4">
+            <div class="w-full md:w-1/3 p-4">
+                <div class="bg-white rounded-2xl pt-[37px] px-5 pb-8 text-center">
+                    <div class="count-up text-[50px] font-semibold text-[#36a5e1] leading-[50px] mb-[21px]" data-value="24/7">24/7</div>
+                    <h3 class="text-2xl font-semibold text-[#181d27] leading-[28.8px] mb-2.5">Availability</h3>
+                    <p class="text-base text-[#535862] leading-[27.2px]">Sophiie answers calls and enquiries instantly, ensuring your business never misses an opportunity—even after hours.</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 p-4">
+                <div class="bg-white rounded-2xl pt-[37px] px-5 pb-8 text-center">
+                    <div class="count-up text-[50px] font-semibold text-[#36a5e1] leading-[50px] mb-[21px]" data-value="10000" data-format="," data-suffix="">10,000</div>
+                    <h3 class="text-2xl font-semibold text-[#181d27] leading-[28.8px] mb-2.5">Calls at Once</h3>
+                    <p class="text-base text-[#535862] leading-[27.2px]">No more busy lines! Sophiie can handle up to 10,000 calls simultaneously, keeping customers happy and engaged.</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 p-4">
+                <div class="bg-white rounded-2xl pt-[37px] px-5 pb-8 text-center">
+                    <div class="count-up text-[50px] font-semibold text-[#36a5e1] leading-[50px] mb-[21px]" data-value="90" data-suffix="%">90%</div>
+                    <h3 class="text-2xl font-semibold text-[#181d27] leading-[28.8px] mb-2.5">Faster Response Time</h3>
+                    <p class="text-base text-[#535862] leading-[27.2px]">Sophiie handles enquiries, providing quick answers and boosting customer satisfaction.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script is:inline>
+    window.addEventListener('load', function() {
+        var counted = false;
+        var section = document.querySelector('.count-up');
+        if (!section) return;
+        var secEl = section.closest('section');
+
+        function animateCount(el) {
+            var text = el.getAttribute('data-value');
+            var suffix = el.getAttribute('data-suffix') || '';
+            var useComma = el.hasAttribute('data-format');
+            var isStatic = /[^0-9]/.test(text) && !useComma; // e.g. "24/7"
+            var duration = 3000;
+            var startTime = null;
+
+            if (isStatic) {
+                // Per-digit animation for mixed text like "24/7"
+                var chars = text.split('');
+                var digitTargets = [];
+                chars.forEach(function(ch, idx) {
+                    if (/\d/.test(ch)) digitTargets.push({idx: idx, target: parseInt(ch)});
+                });
+                function stepStatic(ts) {
+                    if (!startTime) startTime = ts;
+                    var progress = Math.min((ts - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    var result = chars.slice();
+                    digitTargets.forEach(function(d) {
+                        result[d.idx] = String(Math.round(eased * d.target));
+                    });
+                    el.textContent = result.join('') + suffix;
+                    if (progress < 1) requestAnimationFrame(stepStatic);
+                    else el.textContent = text + suffix;
+                }
+                el.textContent = chars.map(function(ch) { return /\d/.test(ch) ? '0' : ch; }).join('') + suffix;
+                requestAnimationFrame(stepStatic);
+            } else {
+                // Smooth single-number count for integers like 10000, 90
+                var target = parseInt(text);
+                function stepNum(ts) {
+                    if (!startTime) startTime = ts;
+                    var progress = Math.min((ts - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    var current = Math.round(eased * target);
+                    el.textContent = (useComma ? current.toLocaleString() : String(current)) + suffix;
+                    if (progress < 1) requestAnimationFrame(stepNum);
+                    else el.textContent = (useComma ? target.toLocaleString() : String(target)) + suffix;
+                }
+                el.textContent = '0' + suffix;
+                requestAnimationFrame(stepNum);
+            }
+        }
+
+        function isInViewport(el) {
+            var r = el.getBoundingClientRect();
+            return r.top < window.innerHeight && r.bottom > 0;
+        }
+
+        // If already visible on load, skip animation - keep final values
+        if (isInViewport(secEl)) {
+            counted = true;
+            return;
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !counted) {
+                    counted = true;
+                    document.querySelectorAll('.count-up').forEach(animateCount);
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        observer.observe(secEl);
+    });
+    </script>
+</section>
+
+<!-- ============ INTEGRATIONS ============ -->
+<section class="pt-20 pb-0">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Left: Text + Icon Row -->
+            <div class="lg:w-[53%] mb-10 lg:mb-0">
+                <!-- Integration Icon Row -->
+                <div class="flex flex-wrap pb-5 mb-4">
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec6047ce636215c4e6d_servicem8-BtAl8Prs.webp" alt="ServiceM8" class="w-full h-full object-contain"/></div></div>
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69bc0344644500f7c1e478fc_google-calendr-new.png" alt="Google Calendar" class="w-full h-full object-contain"/></div></div>
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69bc030b43020739d66f0ea6_new-main-img.webp" alt="Outlook" class="w-full h-full object-contain"/></div></div>
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec69a0ed31ec990c7f8_download.webp" alt="Mail" class="w-full h-full object-contain"/></div></div>
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec6359a8d24e8b08fdf_outlook-calendar-C6iwnjYF.webp" alt="Outlook Calendar" class="w-full h-full object-contain"/></div></div>
+                    <div class="p-2"><div class="w-14 h-14 rounded-xl border border-[#e1e7ef] shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2.5"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec6d232206d23b372b0_xero-BN17zT_9.svg" alt="Xero" class="w-full h-full object-contain"/></div></div>
+                </div>
+
+                <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px] mb-[25px]">Connect with the<br/><span>tools you already use</span></h2>
+                <p class="text-base text-[#475467] leading-6">ServiceM8, Xero, Google Calendar and more — run your entire business from one place.</p>
+            </div>
+
+            <!-- Right: SVG Illustration + Floating Cards -->
+            <div class="lg:w-[47%] pl-0 lg:pl-[30px]">
+                <div class="relative" style="width: 100%; aspect-ratio: 494/396;">
+                    <!-- Main SVG illustration -->
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b415ea0df02b6a55ca26ab_cxonnect-svg.svg" alt="Integrations" class="w-full h-full"/>
+
+                    <!-- Floating Card: Xero - Invoice Sent -->
+                    <div class="absolute bg-white rounded-xl px-4 py-3 border border-[#e1e7ef] shadow-[0_4px_6px_-4px_rgba(0,0,0,0.01),0_10px_15px_-3px_rgba(0,0,0,0.01)] animate-float-y" style="top: 0; right: 2%; width: 150px; animation-delay: 1.2s;">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-8 h-8 flex items-center justify-center"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec6d232206d23b372b0_xero-BN17zT_9.svg" alt="Xero" class="w-full h-full object-contain"/></div>
+                        </div>
+                        <div class="text-xs font-semibold text-black">Invoice Sent</div>
+                        <p class="text-[11px] font-medium text-[#3aa5df]">&#10003; Paid</p>
+                    </div>
+
+                    <!-- Floating Card: Google Calendar - Job Scheduled -->
+                    <div class="absolute bg-white rounded-xl px-4 py-3 border border-[#e1e7ef] shadow-[0_4px_6px_-4px_rgba(0,0,0,0.01),0_10px_15px_-3px_rgba(0,0,0,0.01)] animate-float-y" style="top: 33%; left: 32%; width: 170px; animation-delay: 0.6s;">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-8 h-8 flex items-center justify-center"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69bc0344644500f7c1e478fc_google-calendr-new.png" alt="Google Calendar" class="w-full h-full object-contain"/></div>
+                        </div>
+                        <div class="text-xs font-semibold text-black">Job Scheduled</div>
+                        <p class="text-[11px] font-medium text-[#3aa5df]">&#10003; Confirmed</p>
+                    </div>
+
+                    <!-- Floating Card: ServiceM8 - Job Booked -->
+                    <div class="absolute bg-white rounded-xl px-4 py-3 border border-[#e1e7ef] shadow-[0_4px_6px_-4px_rgba(0,0,0,0.01),0_10px_15px_-3px_rgba(0,0,0,0.01)] animate-float-y" style="top: 67%; left: 2%; width: 147px; animation-delay: 0s;">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-8 h-8 flex items-center justify-center"><img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/69b40ec6047ce636215c4e6d_servicem8-BtAl8Prs.webp" alt="ServiceM8" class="w-full h-full object-contain"/></div>
+                        </div>
+                        <div class="text-xs font-semibold text-black">Job Booked</div>
+                        <p class="text-[11px] font-medium text-[#3aa5df]">&#10003; Synced</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ LISTEN TO SOPHIIE ============ -->
+<section class="py-20" x-data="{
+    playing: null,
+    audios: [
+        { name: 'Elite Electrical', trade: 'Electrician', img: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f0f7d5b15eaecf0809ba3b_listen-img6.webp', src: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1e2102c09de416cfbd90b_elite-electrical.mp3' },
+        { name: 'Imperial Painting', trade: 'Painter', img: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f0f7d599a7c3d47c209afa_listen-img7.webp', src: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1e2334fd072e75829b963_imperial-painting.mp3' },
+        { name: 'Master Plumbing', trade: 'Plumber', img: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f0f7d622d1e3eccf150364_listen-img8.webp', src: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1e25b6a7c6ab378b78fdd_master-plumbing.mp3' },
+        { name: 'Prime Building Projects', trade: 'Builder', img: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f0f7d66c78a5cbf8b46c7d_listen-img9.webp', src: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68f1e27d3b621db6589b903f_prime-building-projects.mp3' }
+    ],
+    audioEls: [],
+    scrollPos: 0,
+    init() {
+        this.$nextTick(() => {
+            this.audioEls = [...this.$el.querySelectorAll('audio')];
+        });
+    },
+    toggle(i) {
+        if (this.playing === i) {
+            this.audioEls[i].pause();
+            this.playing = null;
+        } else {
+            if (this.playing !== null && this.audioEls[this.playing]) this.audioEls[this.playing].pause();
+            this.audioEls[i].play();
+            this.playing = i;
+        }
+    },
+    scroll(dir) {
+        var el = this.$refs.slider;
+        var cardW = 351 + 32;
+        el.scrollBy({ left: dir * cardW, behavior: 'smooth' });
+    }
+}">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header: H2 left, Arrows right -->
+        <div class="flex items-end justify-between mb-14">
+            <div>
+                <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px]">Listen to Sophiie answer<br/>the phone live</h2>
+            </div>
+            <div class="flex gap-5">
+                <button @click="scroll(-1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button @click="scroll(1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="overflow-hidden">
+            <div x-ref="slider" class="flex gap-8 overflow-x-auto hide-scrollbar" style="scroll-snap-type: x mandatory;">
+                <template x-for="(a, i) in audios" :key="i">
+                    <div class="flex-shrink-0 bg-[#f7fbfe] rounded-lg p-8" style="width: 351px; min-height: 186px; scroll-snap-align: start;">
+                        <!-- Top: Avatar + Text -->
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                                <img :src="a.img" :alt="a.name" class="w-full h-full object-cover"/>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-[#1f2937]" x-text="a.name"></h3>
+                                <p class="text-base text-[#4b5563]" x-text="a.trade"></p>
+                            </div>
+                        </div>
+                        <!-- Bottom: Play button + Waveform -->
+                        <div class="flex items-center gap-3">
+                            <button @click="toggle(i)" class="w-9 h-9 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm hover:shadow transition">
+                                <svg x-show="playing !== i" class="w-4 h-4 text-[#36a5e1]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <svg x-show="playing === i" class="w-4 h-4 text-[#36a5e1]" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <!-- Simple waveform bars -->
+                            <div class="flex items-center gap-[3px] flex-1 h-9">
+                                <template x-for="b in 48" :key="b">
+                                    <div class="w-[2px] rounded-full" :class="playing === i ? 'bg-[#36a5e1]' : 'bg-[#9ca3af]'" :style="'height:' + (6 + Math.round(Math.random() * 24)) + 'px'"></div>
+                                </template>
+                            </div>
+                        </div>
+                        <audio :src="a.src" @ended="playing = null" preload="none"></audio>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SEAMLESS COMMUNICATION ============ -->
+<section class="py-20">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header: H2 left, Subtitle + Button right -->
+        <div class="flex flex-col lg:flex-row items-start mb-16">
+            <div class="lg:w-[43%]">
+                <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px]">Seamless Communication &amp; Smart Workflow Automation for Businesses</h2>
+            </div>
+            <div class="lg:w-[57%] lg:pl-[30px] mt-6 lg:mt-0">
+                <p class="text-base text-[#4b5563] leading-[25.6px] mb-[16px]">Streamline communication, automate tasks, and stay organised with Sophiie. ensuring efficiency, professionalism, and seamless workflow management.</p>
+                <a href="/free-demo-alt" class="inline-flex items-center px-5 py-4 bg-[#2b84b4] text-white font-semibold rounded-[10px] hover:bg-brand-dark transition-all">Learn More</a>
+            </div>
+        </div>
+
+        <!-- 4 Image Cards: 2x2 alternating wide/narrow -->
+        <div class="flex flex-wrap -m-3">
+            <!-- Card 1: Never Miss a Call (wide) -->
+            <div class="w-full lg:w-[57.5%] p-3">
+                <div class="relative rounded-3xl overflow-hidden" style="height: 316px;">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d5242342226ba58df2e00e_seamless-bg1.webp" alt="Never Miss a Call" class="absolute inset-0 w-full h-full object-cover"/>
+                    <div class="absolute top-0 left-0 pt-8 pl-8 pr-2.5">
+                        <div class="max-w-[333px]">
+                            <h3 class="text-[30px] font-semibold text-[#1f2937] mb-2.5">Never Miss a Call</h3>
+                            <p class="text-lg text-[#4b5563] leading-[27px]">Sophiie ensures every patient's enquiry is handled, even during peak hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2: Save Time (narrow) -->
+            <div class="w-full lg:w-[42.5%] p-3">
+                <div class="relative rounded-3xl overflow-hidden" style="height: 316px;">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d52423165946e69a737c0b_seamless-bg2.avif" alt="Save Time" class="absolute inset-0 w-full h-full object-cover"/>
+                    <div class="absolute top-0 left-0 pt-8 pl-8 pr-2.5">
+                        <div class="max-w-[230px]">
+                            <h3 class="text-[30px] font-semibold text-[#1f2937] mb-2.5">Save Time</h3>
+                            <p class="text-lg text-[#4b5563] leading-[27px]">Automate routine tasks like appointment scheduling and FAQs, freeing your staff to focus on care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3: Enhance Professionalism (narrow) -->
+            <div class="w-full lg:w-[42.5%] p-3">
+                <div class="relative rounded-3xl overflow-hidden" style="height: 316px;">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d52423220ab45dd9cf8cb6_seamless-bg3.webp" alt="Enhance Professionalism" class="absolute inset-0 w-full h-full object-cover"/>
+                    <div class="absolute top-0 left-0 pt-8 pl-8 pr-2.5">
+                        <div class="max-w-[278px]">
+                            <h3 class="text-[30px] font-semibold text-[#1f2937] mb-2.5">Enhance Professionalism</h3>
+                            <p class="text-lg text-[#4b5563] leading-[27px]">Provide a consistent, high-quality experience for every patient interaction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4: Stay Organised (wide) -->
+            <div class="w-full lg:w-[57.5%] p-3">
+                <div class="relative rounded-3xl overflow-hidden" style="height: 316px;">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d524230d0bcd5172f426fc_seamless-bg4.webp" alt="Stay Organised" class="absolute inset-0 w-full h-full object-cover"/>
+                    <div class="absolute top-0 left-0 pt-8 pl-8 pr-2.5">
+                        <div class="max-w-[376px]">
+                            <h3 class="text-[30px] font-semibold text-[#1f2937] mb-2.5">Stay Organised</h3>
+                            <p class="text-lg text-[#4b5563] leading-[27px]">Centralise patient details, call summaries, and schedules in one easy-to-use system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section class="py-20" x-data="{ scrollIndustry(dir) { var el = $refs.industrySlider; el.scrollBy({ left: dir * 383, behavior: 'smooth' }); } }">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header: H2 left, Arrows right -->
+        <div class="flex items-center justify-between mb-16">
+            <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px]">Tailored AI-Powered Solutions<br/>for Every Service Industry</h2>
+            <div class="flex gap-5 flex-shrink-0">
+                <button @click="scrollIndustry(-1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button @click="scrollIndustry(1)" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="overflow-hidden">
+            <div x-ref="industrySlider" class="flex gap-8 overflow-x-auto hide-scrollbar" style="scroll-snap-type: x mandatory;">
+                {industries.map(ind => (
+                    <IndustryCard href={ind.href} img={ind.img} alt={ind.alt} title={ind.title} description={ind.description} />
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="py-20" x-data="{ activeTestimonial: 0, testimonials: [
+    { name: 'Tracey Franco', company: 'Finance Corp', avatar: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68f0e493101b0407cf1a716c_68d6857aef3f46c0a87919e7_finance.png', quote: 'I\'ve been using Sophiie AI since January 2025, and I am beyond impressed with its capabilities. The call quality, the intelligence, and the way Sophiie understands and responds are simply top-notch. It has significantly streamlined my workflow, handling calls with precision and professionalism.' },
+    { name: 'Moira Scott', company: 'Your Local Termite and Pest Control', avatar: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68f0e4c61cb9944ec2ebcf2e_68d6857abf8c0e239b7d9b28_pest-control.png', quote: 'Sophiie has been an absolute game-changer for our pest control business! For the past month, this digital assistant has seamlessly integrated into our call handling process, ensuring we never miss a potential customer.' },
+    { name: 'Chris Keast', company: 'Keast Blinds', avatar: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68f0e4fa8c3d167cb56c715c_68d6857aef3f46c0a8791a11_keast.png', quote: 'Great product, super handy if you\'re a busy small business owner like me, not only are calls answered but the clients name and needs are listed so when you finish your task you can contact the client back with everything they need to progress forward.' }
+] }">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Left: Testimonial Slider -->
+            <div class="lg:w-[47.5%] mb-10 lg:mb-0">
+                <!-- Stars -->
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d5397a17e3ca3571f7f958_five-star.svg" alt="5 stars" class="w-[114px] h-5 mb-[15px]"/>
+
+                <!-- Quote -->
+                <p class="text-[30px] font-normal text-[#182230] leading-[39px] mb-2.5" x-text="testimonials[activeTestimonial].quote"></p>
+
+                <!-- Client -->
+                <div class="flex items-center gap-3 mt-[47px]">
+                    <img :src="testimonials[activeTestimonial].avatar" :alt="testimonials[activeTestimonial].name" class="w-[54px] h-[54px] rounded-full object-cover"/>
+                    <div>
+                        <div class="text-2xl font-medium text-[#182230]" x-text="testimonials[activeTestimonial].name"></div>
+                        <p class="text-xl text-[#182230]" x-text="testimonials[activeTestimonial].company"></p>
+                    </div>
+                </div>
+
+                <!-- Arrows -->
+                <div class="flex gap-5 mt-8">
+                    <button @click="activeTestimonial = activeTestimonial === 0 ? testimonials.length - 1 : activeTestimonial - 1" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button @click="activeTestimonial = activeTestimonial === testimonials.length - 1 ? 0 : activeTestimonial + 1" class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Image -->
+            <div class="lg:w-[52.5%]">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d5397af9266dfacc8d0d70_testimonials-rgt-img.webp" alt="Sophiie testimonials" class="w-full"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BUILD TRUST ============ -->
+<section class="relative" style="padding: 120px 0 88px;">
+    <!-- Background image -->
+    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d53ed00069dd75ab3b5776_build-trustbg.jpg" alt="" class="absolute inset-0 w-full h-full object-fill" style="z-index: -1;"/>
+    <div class="max-w-[1140px] mx-auto px-3 relative">
+        <div class="flex flex-col lg:flex-row">
+            <!-- Left: Text -->
+            <div class="lg:w-1/2">
+                <div class="flex flex-col justify-center items-start py-5 h-full">
+                    <h2 class="text-[36px] font-semibold text-[#1f2937] leading-[39.6px] mb-[15px]">Build Trust and Efficiency with Sophiie</h2>
+                    <p class="text-base text-[#182230] leading-6 mb-2.5">Sophiie handles all enquiries and eliminates admin tasks like follow-ups and scheduling, keeping your business efficient and stress-free.</p>
+                    <a href="/free-demo-alt" class="inline-flex items-center px-[29px] py-4 bg-[#2b84b4] text-white font-semibold rounded-[10px] hover:bg-brand-dark transition-all">
+                        Get Started Today
+                    </a>
+                </div>
+            </div>
+            <!-- Right: Image -->
+            <div class="lg:w-1/2 pl-0 lg:pl-5">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d53ed0367f73dfd1b611e7_build-trust-img.webp" alt="Build trust with Sophiie" class="w-full h-auto"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section style="padding: 96px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <FromTheBlog
+            heading="From the news"
+            articles={newsArticles}
+            showCategory={false}
+            showArrow={false}
+            imageHeight="213px"
+            ctaStyle="outlined"
+        />
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="py-20 bg-white" x-data="{ active: 0 }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:gap-16">
+        <!-- Left: Heading -->
+        <div class="lg:w-1/3 mb-10 lg:mb-0">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Frequently asked<br/>questions</h2>
+            <p class="text-gray-500">Find quick answers to common questions about how Sophiie AI works.</p>
+        </div>
+
+        <!-- Right: Accordion -->
+        <div class="lg:w-2/3 space-y-3">
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 0 ? null : 0" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">How does Sophiie handle incoming calls?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 0 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 0" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    Sophiie can either ring your phone first and answer only if you miss the call, or pick up instantly, depending on what works best for your business. This ensures every caller receives a prompt, professional response, whether you're available or not.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 1 ? null : 1" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">Does Sophiie work after hours and on weekends?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 1" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    Absolutely! Sophiie is available 24/7, so your business stays open even when you're off the clock. She never takes a sick day, never goes on holiday, and always answers calls: day or night, rain, hail, or shine!
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 2 ? null : 2" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">What happens if Sophiie can't answer a customer's question?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 2" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    If Sophiie doesn't have an answer, she records the enquiry and sends it to you for review. You can then add the response to her knowledge base, so next time a customer asks the same question, Sophiie will know exactly how to answer.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 3 ? null : 3" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">How does Sophiie know what to say to my customers?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 3" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    Sophiie is trained with a knowledge base and follows pre-set responses based on your business needs. You can customise her answers anytime to ensure she provides accurate information. Once trained, she never forgets and delivers the correct response every time.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 4 ? null : 4" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">Can Sophiie handle different types of businesses?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 4" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    Yes! Sophiie is designed for any service-based industry, including trades, medical, legal, finance, automotive, health &amp; wellness, and more. She adapts to your business needs with custom responses tailored to your services.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                <button @click="active = active === 5 ? null : 5" class="w-full flex justify-between items-center p-5 text-left">
+                    <span class="font-semibold text-gray-900 pr-4">Can Sophiie handle multiple calls at once?</span>
+                    <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class="{ 'rotate-180': active === 5 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div x-show="active === 5" x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                    Yes! Sophiie can handle up to 10,000 calls simultaneously, ensuring no customer is ever left waiting. Whether it's one call or a thousand, Sophiie answers instantly, so your business never misses an opportunity.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section style="padding: 80px 0 20px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="relative" style="padding: 0 22px 0 60px;">
+            <!-- Background image (bottom-aligned card) -->
+            <div class="absolute bottom-0 left-0 right-0 overflow-hidden rounded-2xl" style="height: 387px;">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d6342b16ae75d4c5b989b1_ready-trans-bg.webp" alt="" class="w-full h-full object-fill"/>
+            </div>
+
+            <!-- Content row -->
+            <div class="flex flex-col lg:flex-row relative">
+                <!-- Left: Text -->
+                <div class="lg:w-[57%]">
+                    <div class="flex flex-col justify-center" style="padding: 73px 0 64px;">
+                        <h2 class="text-[48px] font-semibold text-[#1f2937] leading-[52.8px] mb-[15px]">Ready to Transform Your Business with Sophiie?</h2>
+                        <p class="text-base text-[#182230] leading-6 mb-2.5">Let Sophiie handle your calls and schedules with professionalism and care. Focus on your patients while Sophiie takes care of the admin.</p>
+                        <div>
+                            <a href="/free-demo-alt" class="inline-flex items-center px-5 py-[13.5px] bg-white text-black text-base font-semibold rounded-[10px] hover:bg-gray-100 transition-all">
+                                Get Started Today
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right: Image (overflows above bg card) -->
+                <div class="lg:w-[43%]">
+                    <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d6357e74fb14ff18fa8ed8_readyto-img.webp" alt="Get started with Sophiie" class="w-full h-auto"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<Footer />
+
+</body>
 </html>

@@ -1,0 +1,265 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const features = [
+    { title: 'Set Jobs or Appointments', desc: 'Easily add new jobs or appointments to your calendar directly from the dashboard.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e75d3fcf95928e5cecc847_anim30.json' },
+    { title: 'Drag-and-Drop Rescheduling', desc: 'Need to move a booking? Simply drag and drop it to a new time or day—no fuss, no confusion.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e75d3f1846ebbc5b037098_anim31.json' },
+    { title: 'Customisable Views', desc: 'Keep your calendar organised with clearly displayed job schedules.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e75d3fed26b2388eaa9bdd_anim29.json' },
+    { title: 'Real-Time Updates', desc: 'Changes to your calendar are updated instantly, ensuring your team stays informed.', lottie: 'https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e75d3f0c15feb8c007df3a_anim32.json' },
+];
+
+const whyChoose = [
+    { title: 'Boost Productivity', desc: 'Organise your team\'s time effectively, ensuring no overlaps or missed appointments.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2f2144894e8be2f1181b_icon5.png' },
+    { title: 'Stay Flexible', desc: 'Make quick adjustments to bookings with drag-and-drop ease.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2f4c29ef9cd689c76e06_icon14.png' },
+    { title: 'Stay in Control', desc: 'Custom views and real-time updates keep you on top of your schedule at all times.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2f760bb436fd26d01bc7_icon29.png' },
+    { title: 'Save Time', desc: 'Eliminate manual rescheduling headaches and keep your calendar organised in one place.', img: 'https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2364e02dd50f14f82e2c_icon7.png' },
+];
+
+const faqs = [
+    { q: 'How does Sophiie\'s scheduling system work?', a: 'Sophiie\'s built-in calendar lets you add, view, and manage jobs and appointments directly from your dashboard with drag-and-drop simplicity.' },
+    { q: 'What calendar views are available?', a: 'You can switch between daily, weekly, and monthly views to get the level of detail you need.' },
+    { q: 'Can I reschedule jobs easily?', a: 'Yes. Simply drag and drop any job or appointment to a new time slot or day. Changes update in real-time for your whole team.' },
+    { q: 'Can I see job statuses in the calendar?', a: 'Yes. Jobs are colour-coded by status so you can see at a glance what\'s pending, in progress, or completed.' },
+    { q: 'Can I sync Sophiie\'s calendar with Google Calendar?', a: 'Yes. Two-way sync with Google Calendar and Outlook keeps everything aligned across platforms.' },
+];
+
+const solutions = [
+    { title: 'AI Phone Answering', desc: 'Never miss a call again—Sophiie answers, qualifies leads, and routes inquiries seamlessly.', href: '/services/ai-phone-answering' },
+    { title: 'AI Chatbot', desc: 'Engage website visitors instantly with Sophiie\'s smart chatbot, answering FAQs and capturing leads 24/7.', href: '/services/ai-chatbot' },
+    { title: 'AI Email Responder', desc: 'Let Sophiie handle your email inquiries with speed and precision, keeping your inbox organised.', href: '/services/ai-email-responder' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>AI Scheduling Assistant | Sophiie AI</title>
+    <meta name="description" content="Sophiie checks availability, suggests smart scheduling, avoids overlaps, and keeps your calendar and customers perfectly in sync."/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Geist', 'Inter', 'sans-serif'] },
+                    colors: { brand: { 50: '#eef8ff', 100: '#d9efff', light: '#9adcff', DEFAULT: '#36a5e1', dark: '#2b84b4', navy: '#081245' } }
+                }
+            }
+        }
+    </script>
+
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+    <style is:global>
+        [x-cloak] { display: none !important; }
+        .nav-dropdown { position: static; }
+        .nav-dropdown .nav-dropdown-menu { display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: 0.3s; position: absolute; top: 100%; left: 0; right: 0; padding-top: 30px; }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+        .nav-dropdown:hover .nav-dropdown-arrow { transform: rotate(180deg); }
+        .nav-dropdown-arrow { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="font-sans text-[#475467] antialiased bg-white overflow-x-hidden" x-data="{ mobileMenuOpen: false, scrolled: false, activeFaq: 0 }" @scroll.window="scrolled = (window.scrollY > 20)">
+
+<Header />
+
+<!-- Background SVG spanning hero + meet + features -->
+<div class="relative">
+<img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e4bb3b79d1daf24cb8e700_bg-hero.svg" alt="" class="absolute top-0 left-0 w-full" style="z-index: -1; height: auto; pointer-events: none;"/>
+
+<!-- ============ HERO BANNER ============ -->
+<section style="padding: 100px 0 35px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Left: Text -->
+            <div style="width: 558px; flex-shrink: 0;">
+                <div style="height: 520px; display: flex; flex-direction: column; justify-content: center;">
+                    <h1 class="text-[48px] font-bold text-[#182230] leading-[52.8px] mb-4">AI Scheduling Assistant</h1>
+                    <h2 class="text-[32px] font-bold text-[#475467] leading-[36px] mb-2.5">Smart AI Scheduling That Automates Bookings for Your Business</h2>
+                    <p class="text-lg text-[#1f2937] leading-[27px] mb-6">Sophiie checks availability, suggests smart scheduling, avoids overlaps, and keeps your calendar and customers perfectly in sync.</p>
+                    <div>
+                        <a href="/free-demo-alt" class="inline-flex items-center px-5 py-[14.5px] bg-[#2b84b4] text-white font-semibold rounded-[10px] hover:bg-brand-dark transition-all text-base">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Right: Image (z9) + Lottie (behind) + Blur (bottom) -->
+            <div style="width: 558px; height: 520px; flex-shrink: 0; position: relative; z-index: 1;">
+                <!-- Static image - on top, object-fit: contain preserves aspect ratio -->
+                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68ee2ba0ba5d83b767891939_hero-ss.png" alt="AI Scheduling Assistant" style="position: absolute; top: 0; left: 0; z-index: 9; width: 558px; height: 522px; object-fit: contain; max-width: 100%; max-height: 100%;"/>
+                <!-- Blur glow - behind everything -->
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e61bed02cf3c50548201d1_hero-blur.png" alt="" style="position: absolute; top: 260px; left: 0; width: 558px; height: 520px; z-index: -1; pointer-events: none;"/>
+                <!-- Lottie animation - middle layer, animates behind the image -->
+                <div style="position: relative; width: 558px; height: 520px;">
+                    <div style="width: 493px; height: 520px; margin: 0 32.5px;" id="hero-lottie" data-lottie-path="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68ee2be6777ee4ff4b6986d0_animh7.json"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MEET SOPHIIE ============ -->
+<section style="padding: 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <!-- Header -->
+        <div class="text-center mb-12" style="padding-top: 96px;">
+            <h2 class="text-[48px] font-semibold text-[#1e2939] leading-[57.6px] mb-4">Stay on Top of Your Schedule</h2>
+            <p class="text-lg text-[#4b5563] leading-[27px] max-w-[700px] mx-auto">Managing jobs and appointments has never been this easy. Sophiie's Smart Scheduling is a built-in calendar within your dashboard that keeps everything organised and accessible.</p>
+        </div>
+        <!-- Image -->
+        <div class="flex justify-center">
+            <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68f7723a6afb55b09edbf41d_68ee2c167fc86f3398127d7b_ss-img0.webp" alt="Sophiie Scheduling Dashboard" style="width: 1024px; height: 685px; object-fit: contain;"/>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURES (4 ALTERNATING) ============ -->
+<section style="padding: 96px 0 120px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="text-center mb-16">
+            <h2 class="text-[36px] font-semibold text-[#182230] leading-[46.8px]">What Can Sophiie's Smart Scheduling Do?</h2>
+        </div>
+
+        <div class="space-y-20">
+            {features.map((feature, idx) => (
+                <div class={`flex flex-col lg:flex-row items-center gap-12 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                    <div class="lg:w-1/2">
+                        <h3 class="text-[30px] font-semibold text-[#182230] leading-[36px] mb-4">{feature.title}</h3>
+                        <p class="text-base text-[#4b5563] leading-6">{feature.desc}</p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="rounded-[40px] overflow-hidden" style="height: 400px;" id={`feature-lottie-${idx}`} data-lottie-path={feature.lottie}></div>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <script is:inline>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-lottie-path]').forEach(function(el) {
+                lottie.loadAnimation({
+                    container: el,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: el.getAttribute('data-lottie-path')
+                });
+            });
+        });
+        </script>
+    </div>
+</section>
+
+</div><!-- end background SVG wrapper -->
+
+<!-- ============ READY TO MEET SOPHIIE (CTA 1) ============ -->
+<section style="padding: 110px 0 64px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-[55%]">
+                <h2 class="text-[36px] font-semibold text-[#182230] leading-[39.6px] mb-4">Ready to Meet Sophiie?</h2>
+                <p class="text-base text-[#4b5563] leading-6 mb-6">Meet your AI Office Manager—designed to keep your business running smoothly while you stay focused on the big picture. From managing enquiries and bookings to keeping your team and customers in sync, Sophiie does it all.</p>
+                <a href="/free-demo-alt" class="inline-flex items-center px-5 py-[14.5px] bg-white text-[#182230] font-semibold rounded-[10px] border border-[#d1d5db] hover:bg-gray-50 transition-all text-base">Learn More</a>
+            </div>
+            <div class="lg:w-[45%]">
+                <img src="https://cdn.prod.website-files.com/68d51ee2af6bb683f056e8cd/68f7726ea7d3625a524bcf40_68ee525290ef42b566eb25cb_ss-img1.webp" alt="Sophiie Scheduling" class="w-full h-auto rounded-2xl"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ WHY CHOOSE ============ -->
+<section class="bg-[#f9fafc]" style="padding: 120px 0 96px;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="text-center mb-14">
+            <h2 class="text-[36px] font-semibold text-[#182230] leading-[43.2px]">Why Choose Sophiie's Job Manager?</h2>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6">
+            {whyChoose.map(card => (
+                <div class="bg-white rounded-xl p-6 text-center" style="width: 352px; min-height: 195px;">
+                    <div class="w-12 h-12 mx-auto mb-4">
+                        <img src={card.img} alt={card.title} class="w-full h-full object-contain"/>
+                    </div>
+                    <h3 class="text-xl font-semibold text-[#182230] leading-6 mb-2">{card.title}</h3>
+                    <p class="text-sm text-[#4b5563] leading-[21px]">{card.desc}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- ============ SMART SOLUTIONS ============ -->
+<section style="padding: 96px 0 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="mb-10">
+            <h2 class="text-[36px] font-semibold text-[#182230] leading-[39.6px] mb-3">Explore More Smart Solutions</h2>
+            <p class="text-base text-[#4b5563] leading-6">Discover additional tools that work seamlessly with Sophiie to elevate your customer communication experience.</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row">
+            <!-- Left: Cards -->
+            <div style="width: 558px; flex-shrink: 0;" class="space-y-6 flex flex-col justify-center">
+                {solutions.map(sol => (
+                    <div class="pb-6 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-[#101828] leading-[21.6px] mb-1">{sol.title}</h3>
+                        <p class="text-sm text-[#4b5563] leading-[21px] mb-2">{sol.desc}</p>
+                        <a href={sol.href} class="text-sm font-semibold text-brand hover:underline">Learn more</a>
+                    </div>
+                ))}
+            </div>
+            <!-- Right: Image -->
+            <div style="width: 558px; flex-shrink: 0;">
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68e63aa2a8934b30b9cc82fa_explore.webp" alt="Explore Smart Solutions" style="width: 558px; height: 516px; object-fit: contain;"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding: 80px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="flex flex-col lg:flex-row gap-16">
+            <div class="lg:w-[45%]">
+                <h2 class="text-[36px] font-semibold text-[#182230] leading-[39.6px] mb-4">Frequently asked questions</h2>
+                <p class="text-base text-[#4b5563] leading-6">Find quick answers to common questions about Sophiie's smart scheduling.</p>
+            </div>
+            <div class="lg:w-[55%] space-y-3">
+                {faqs.map((faq, idx) => (
+                    <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden">
+                        <button @click={`activeFaq = activeFaq === ${idx} ? null : ${idx}`} class="w-full flex justify-between items-center p-5 text-left">
+                            <span class="font-medium text-[#111827] text-lg leading-[28px] pr-4">{faq.q}</span>
+                            <svg class="w-5 h-5 text-brand flex-shrink-0 transition-transform" :class={`{ 'rotate-180': activeFaq === ${idx} }`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div x-show={`activeFaq === ${idx}`} x-collapse x-cloak class="px-5 pb-5 text-gray-500 text-sm leading-relaxed">
+                            {faq.a}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BOTTOM CTA ============ -->
+<section style="padding: 80px 0;">
+    <div class="max-w-[1140px] mx-auto px-3">
+        <div class="rounded-2xl text-center" style="background: linear-gradient(to right, #7dd3ff 0%, #4aa9ff 100%); padding: 75px 64px;">
+            <h2 class="text-[36px] font-semibold text-white leading-[39.6px] mb-4">Ready to Simplify Your Scheduling?</h2>
+            <p class="text-lg text-white leading-[27px] max-w-[600px] mx-auto mb-8">Transform the way you manage your time with Sophiie's Smart Scheduling. Try it today and see how easy organising your day can be!</p>
+            <a href="/free-demo-alt" class="inline-flex items-center px-5 py-[15.5px] bg-white text-[#182230] text-base font-semibold rounded-[10px] border border-[#d1d5db] hover:bg-gray-50 transition-all">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<Footer />
+
+</body>
+</html>

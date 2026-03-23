@@ -1,0 +1,43 @@
+---
+interface Props {
+    slug: string;
+    title: string;
+    heroImg: string;
+    description: string;
+    category?: string;
+    showCategory?: boolean;
+    showArrow?: boolean;
+    imageHeight?: string;
+    imageRounding?: string;
+}
+
+const {
+    slug,
+    title,
+    heroImg,
+    description,
+    category = '',
+    showCategory = true,
+    showArrow = true,
+    imageHeight = '200px',
+    imageRounding = 'rounded-xl',
+} = Astro.props;
+---
+
+<a href={`/news/${slug}`} class="block overflow-hidden group">
+    <div class={`${imageRounding} overflow-hidden mb-4`} style={`height: ${imageHeight};`}>
+        <img src={heroImg} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+    </div>
+    <div>
+        {showCategory && category && (
+            <p class="text-base text-[#4b5563] mb-2">{category}</p>
+        )}
+        <div class={`flex items-start ${showArrow ? 'justify-between gap-3' : ''}`}>
+            <h3 class="text-lg font-semibold text-[#101828] leading-[21.6px] mb-2">{title}</h3>
+            {showArrow && (
+                <img src="https://cdn.prod.website-files.com/68d290d293affc6bb3574aeb/68d52daf438c1a007682df56_industry-sldr-bx-arr.svg" alt="" class="w-[10px] h-4 mt-1 flex-shrink-0"/>
+            )}
+        </div>
+        <p class="text-sm text-[#4a5565] leading-[21px]">{description}</p>
+    </div>
+</a>

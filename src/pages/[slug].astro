@@ -1,0 +1,19 @@
+---
+export async function getStaticPaths() {
+    const pages = import.meta.glob('../landing-pages/*.astro');
+
+    return Object.entries(pages).map(([path, loader]) => {
+        const filename = path.split('/').pop().replace('.astro', '');
+        const slug = filename.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        return {
+            params: { slug },
+            props: { loader },
+        };
+    });
+}
+
+const { loader } = Astro.props;
+const mod = await loader();
+const Page = mod.default;
+---
+<Page />
